@@ -7,6 +7,7 @@
             min-height: 100vh;
             padding: 40px 40px;
         }
+
         .dashboard-title {
             font-size: 32px;
             font-weight: 700;
@@ -14,10 +15,11 @@
             margin-bottom: 30px;
             text-align: center;
         }
+
         .value-circle {
             width: 60px;
             height: 40px;
-            background: #ffffff33; 
+            background: #ffffff33;
             border-radius: 40%;
             display: flex;
             align-items: center;
@@ -25,15 +27,18 @@
             font-size: 20px;
             font-weight: bold;
             color: #fff;
-            margin: 10px auto; 
+            margin: 10px auto;
         }
+
         .row.g-4 {
             display: flex;
             flex-wrap: wrap;
             margin-left: 0;
             margin-right: 0;
+            justify-content: center; 
             gap: 1.5rem;
         }
+
         .col-12.col-md-6.col-xl-3 {
             display: flex;
             flex: 1 0 25%;
@@ -41,6 +46,7 @@
             padding-left: 0.75rem;
             padding-right: 0.75rem;
         }
+
         .dashboard-card {
             flex: 1;
             display: flex;
@@ -92,6 +98,7 @@
             text-decoration: none;
             transition: all 0.3s;
         }
+
             .dashboard-link:hover {
                 background-color: rgba(255, 255, 255, 0.4);
             }
@@ -148,7 +155,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="dashboard-wrapper">
-        <div class="container-fluid">
+        <div class="container-fluid justify-content-between">
             <h2 class="dashboard-title">🏠 Dashboard Overview</h2>
             <div class="row g-4">
                 <!-- Card 1 -->
@@ -167,7 +174,7 @@
                     <div class="dashboard-card bg-green">
                         <i class="bi bi-door-open-fill"></i>
                         <h5>Total Vacant</h5>
-                       <div class="value-circle">
+                        <div class="value-circle">
                             <asp:Literal ID="_Literalvacant" runat="server" />
                         </div>
                     </div>
