@@ -9,7 +9,7 @@
                 <div class="bg-light rounded p-4 pb-0">
                     <div class="row g-5 align-items-center">
                         <div class="col-lg-12 wow fadeInLeft" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInLeft;">
-                            <h2 class="display-5 mb-2"> <a href="Dashboard.aspx" >Dashboard</a> - Tenent Master</h2>
+                            <h2 class="display-5 mb-2"><a href="Dashboard.aspx">Dashboard</a> - Tenent Master</h2>
                             <asp:GridView ID="GridView2" class="table table-bordered table-condensed table-responsive table-hover " runat="server" AutoGenerateColumns="false">
                                 <Columns>
                                     <asp:TemplateField HeaderText="SL. No.">
@@ -35,6 +35,14 @@
                                     <asp:TemplateField HeaderText="Action">
                                         <ItemTemplate>
                                             <asp:ImageButton CommandArgument='<%# Bind("ID") %>' ID="_ImageButtonView" runat="server" ImageUrl="~/img/edit.png" Width="30px" ToolTip="View Payment Details" OnClientClick="target ='_blank';" OnClick="_ImageButtonView_Click" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                       <asp:TemplateField HeaderText="Deactivate">
+                                        <ItemTemplate>
+                                            <asp:Button ID="btnDeactivate" runat="server" Text="Deactivate"
+                                                CssClass="btn btn-danger btn-sm"
+                                                CommandArgument='<%# Eval("ID") %>'
+                                                OnClick="btnDeactivate_Click" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                 </Columns>
