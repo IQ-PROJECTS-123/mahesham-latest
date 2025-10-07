@@ -1,10 +1,6 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true"
-    CodeBehind="mTenent.aspx.cs" Inherits="Maheshamv3.mTenent"
-    UnobtrusiveValidationMode="None" %>
-
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="mTenent.aspx.cs" Inherits="Maheshamv3.mTenent" UnobtrusiveValidationMode="None" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
-
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container-fluid contact py-5">
         <div class="container py-5">
@@ -138,6 +134,8 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
             </div>
         </div>
 </asp:Content>
