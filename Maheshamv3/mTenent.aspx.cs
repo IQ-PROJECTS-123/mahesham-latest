@@ -12,19 +12,20 @@ namespace Maheshamv3
         {
             if (!IsPostBack)
             {
-                Bind();
+                BindRooms();
                 if (!String.IsNullOrEmpty(Request.QueryString["ID"]))
                 {
                     LoadTenantData(Request.QueryString["ID"]);
                 }
             }
         }
+
         private void LoadTenantData(string tenantId)
         {
             DataTable dt = Utility._GetDataTable("SELECT *, FORMAT(RentStart,'yyyy-MM-dd') as StartOn FROM Tenant WHERE ID=" + tenantId);
             if (dt.Rows.Count > 0)
             {
-                _DropDownListType.SelectedIndex = dt.Rows[0]["TenantType"].ToString() == "Main Tenent" ? 0 : 1;
+                _DropDownListType.SelectedIndex = dt.Rows[0]["TenantType"].ToString() == "Main Tenant" ? 0 : 1;
                 _DropDownListFacility.SelectedValue = dt.Rows[0]["Facility"].ToString();
                 _TextName.Text = dt.Rows[0]["Name"].ToString();
                 _TextBoxAadhar.Text = dt.Rows[0]["AadharNumber"].ToString();
@@ -47,8 +48,19 @@ namespace Maheshamv3
         {
             if (_DropDownListFacility.SelectedIndex == 0)
             {
-                _LiteralMSG.Text = "<div class='p-3 mb-2 bg-danger text-white'>Please select a facility or room.</div>";
+                _LiteralMSG.Text = "<div class='p-3 mb-2 bg-danger text-white'>Please select a room.</div>";
                 return;
+            }
+
+            // Ensure Main Tenant is unique
+            if (_DropDownListType.SelectedValue == "Main Tenant")
+            {
+                DataTable dtCheck = Utility._GetDataTable("SELECT * FROM Tenant WHERE Facility=" + _DropDownListFacility.SelectedValue + " AND TenantType='Main Tenant' AND Active=1");
+                if (dtCheck.Rows.Count > 0)
+                {
+                    _LiteralMSG.Text = "<div class='p-3 mb-2 bg-danger text-white'>Main Tenant already exists in this room. Please select Partner Tenant.</div>";
+                    return;
+                }
             }
 
             string query = String.IsNullOrEmpty(Request.QueryString["ID"])
@@ -74,9 +86,10 @@ namespace Maheshamv3
                 new SqlParameter("@MonthlyRent", _TextBoxAmount.Text),
                 new SqlParameter("@RentStart", _TextBoxStartDate.Text)
             );
-            _LiteralMSG.Text = "<div class='p-3 mb-2 bg-success text-white'>Tenant has been submitted successfully!</div>";
-            _ButtonSubmit.Visible = false;    
-            _ButtonDocVeri.Visible = true;     
+
+            _LiteralMSG.Text = "<div class='p-3 mb-2 bg-success text-white'>Tenant submitted successfully!</div>";
+            _ButtonSubmit.Visible = false;
+            _ButtonDocVeri.Visible = true;
             _ButtonAddMore.Visible = true;
         }
 
@@ -92,27 +105,40 @@ namespace Maheshamv3
             return dt.Rows.Count > 0 ? dt.Rows[0]["ID"].ToString() : "0";
         }
 
-        protected void Bind()
+        protected void BindRooms()
         {
-            if (String.IsNullOrEmpty(Request.QueryString["ID"]))
+            string query = "";
+            if (_DropDownListType.SelectedValue == "Main Tenant")
             {
-                string query = _DropDownListType.SelectedIndex == 0
-                    ? "SELECT f.ID, f.Building+' '+f.Location+' - '+ f.Title as Title FROM Facility f WHERE NOT ID IN (SELECT Facility FROM Tenant WHERE Active=1 AND TenantType='Main Tenent') ORDER BY ID"
-                    : "SELECT f.ID, f.Building+' '+f.Location+' - '+ f.Title as Title FROM Facility f, Tenant t WHERE t.Active=1 AND f.ID = t.Facility AND TenantType='Main Tenent' ORDER BY ID";
-
-                Utility._BindDropdown(_DropDownListFacility, query, "ID", "Title", true);
+                // Rooms without main tenant
+                query = @"SELECT f.ID, f.Building+' '+f.Location+' - '+ f.Title as Title 
+                          FROM Facility f 
+                          WHERE NOT ID IN (SELECT Facility FROM Tenant WHERE Active=1 AND TenantType='Main Tenant') 
+                          ORDER BY ID";
             }
             else
             {
-                Utility._BindDropdown(_DropDownListFacility, "SELECT f.ID, f.Building+' '+f.Location+' - '+ f.Title as Title FROM Facility f WHERE Active=1 ORDER BY ID", "ID", "Title", true);
+                // Rooms with existing main tenant
+                query = @"SELECT DISTINCT f.ID, f.Building+' '+f.Location+' - '+ f.Title as Title 
+                          FROM Facility f
+                          INNER JOIN Tenant t ON t.Facility=f.ID
+                          WHERE t.Active=1 AND t.TenantType='Main Tenant'
+                          ORDER BY f.ID";
             }
+
+            Utility._BindDropdown(_DropDownListFacility, query, "ID", "Title", true);
         }
-        protected void _DropDownListType_SelectedIndexChanged(object sender, EventArgs e) => Bind();
+
+        protected void _DropDownListType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            BindRooms();
+        }
+
         protected void _DropDownListFacility_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (_DropDownListType.SelectedIndex == 1)
+            if (_DropDownListType.SelectedValue == "Partner Tenant")
             {
-                DataTable dt = Utility._GetDataTable("SELECT RentStart, MonthlyRent, MeterReadingStart FROM Tenant WHERE TenantType='Main Tenent' AND Facility=" + _DropDownListFacility.SelectedValue);
+                DataTable dt = Utility._GetDataTable("SELECT RentStart, MonthlyRent, MeterReadingStart FROM Tenant WHERE TenantType='Main Tenant' AND Facility=" + _DropDownListFacility.SelectedValue);
                 if (dt.Rows.Count > 0)
                 {
                     _TextBoxAmount.Text = dt.Rows[0]["MonthlyRent"].ToString();
@@ -125,7 +151,7 @@ namespace Maheshamv3
         protected void _ButtonAddMore_Click(object sender, EventArgs e)
         {
             Utility.ClearControls(this);
-            Bind();
+            BindRooms();
             _ButtonDocVeri.Visible = false;
             _ButtonAddMore.Visible = false;
             _ButtonSubmit.Visible = true;

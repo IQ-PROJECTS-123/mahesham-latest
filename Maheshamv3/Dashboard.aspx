@@ -1,5 +1,4 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Dashboard.aspx.cs" Inherits="Maheshamv3.Dashboard" %>
-
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
         .dashboard-wrapper {
@@ -7,7 +6,6 @@
             min-height: 100vh;
             padding: 40px 40px;
         }
-
         .dashboard-title {
             font-size: 32px;
             font-weight: 700;
@@ -15,7 +13,6 @@
             margin-bottom: 30px;
             text-align: center;
         }
-
         .value-circle {
             width: 60px;
             height: 40px;
@@ -29,7 +26,6 @@
             color: #fff;
             margin: 10px auto;
         }
-
         .row.g-4 {
             display: flex;
             flex-wrap: wrap;
@@ -60,18 +56,15 @@
             box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
         }
-
             .dashboard-card:hover {
                 transform: translateY(-6px);
                 box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
             }
-
             .dashboard-card i {
                 font-size: 38px;
                 margin-bottom: 15px;
                 transition: all 0.3s ease;
             }
-
             .dashboard-card:hover i {
                 transform: scale(1.15);
             }
@@ -98,11 +91,9 @@
             text-decoration: none;
             transition: all 0.3s;
         }
-
             .dashboard-link:hover {
                 background-color: rgba(255, 255, 255, 0.4);
             }
-        /* Color themes */
         .bg-blue {
             background: linear-gradient(135deg, #2196f3, #21cbf3);
         }
@@ -134,22 +125,17 @@
         .bg-pink {
             background: linear-gradient(135deg, #d81b60, #f06292);
         }
-
-        /* Responsive adjustments */
         @media (max-width: 992px) {
             .col-xl-3 {
                 flex: 0 0 50%;
                 max-width: 50%;
             }
-            /* 2 per row on medium screens */
         }
-
         @media (max-width: 576px) {
             .col-xl-3, .col-md-6 {
                 flex: 0 0 100%;
                 max-width: 100%;
             }
-            /* 1 per row on small screens */
         }
     </style>
 </asp:Content>
@@ -168,7 +154,6 @@
                         </div>
                     </div>
                 </div>
-
                 <!-- Card 2 -->
                 <div class="col-12 col-md-6 col-xl-3">
                     <div class="dashboard-card bg-green">
@@ -179,7 +164,6 @@
                         </div>
                     </div>
                 </div>
-
                 <!-- Card 3 -->
                 <div class="col-12 col-md-6 col-xl-3">
                     <div class="dashboard-card bg-orange">
@@ -190,7 +174,6 @@
                         </div>
                     </div>
                 </div>
-
                 <!-- Card 4 -->
                 <div class="col-12 col-md-6 col-xl-3">
                     <div class="dashboard-card bg-red">
@@ -201,7 +184,6 @@
                         </div>
                     </div>
                 </div>
-
                 <!-- Card 5 -->
                 <div class="col-12 col-md-6 col-xl-3">
                     <div class="dashboard-card bg-purple">
@@ -210,7 +192,6 @@
                         <a href="MeterReading.aspx" class="dashboard-link">Go</a>
                     </div>
                 </div>
-
                 <!-- Card 6 -->
                 <div class="col-12 col-md-6 col-xl-3">
                     <div class="dashboard-card bg-teal">
@@ -219,7 +200,6 @@
                         <a href="RentGenerator.aspx" class="dashboard-link">Go</a>
                     </div>
                 </div>
-
                 <!-- Card 7 -->
                 <div class="col-12 col-md-6 col-xl-3">
                     <div class="dashboard-card bg-pink">
@@ -228,7 +208,6 @@
                         <a href="Rental.aspx" class="dashboard-link">Go</a>
                     </div>
                 </div>
-
                 <!-- Card 8 -->
                 <div class="col-12 col-md-6 col-xl-3">
                     <div class="dashboard-card bg-gray">
@@ -237,7 +216,6 @@
                         <a href="ROOMLedger.aspx" class="dashboard-link">Go</a>
                     </div>
                 </div>
-
                 <!-- Card 9 -->
                 <div class="col-12 col-md-6 col-xl-3">
                     <div class="dashboard-card bg-blue">
@@ -246,7 +224,6 @@
                         <a href="Tenent.aspx" class="dashboard-link">Go</a>
                     </div>
                 </div>
-
                 <!-- Card 10 -->
                 <div class="col-12 col-md-6 col-xl-3">
                     <div class="dashboard-card bg-green">
@@ -255,7 +232,6 @@
                         <a href="mTenent.aspx" class="dashboard-link">Go</a>
                     </div>
                 </div>
-
                 <!-- Card 11 -->
                 <div class="col-12 col-md-6 col-xl-3">
                     <div class="dashboard-card bg-orange">
@@ -264,7 +240,6 @@
                         <a href="DataEntry.aspx" class="dashboard-link">Go</a>
                     </div>
                 </div>
-
                 <!-- Card 12 -->
                 <div class="col-12 col-md-6 col-xl-3">
                     <div class="dashboard-card bg-red">
