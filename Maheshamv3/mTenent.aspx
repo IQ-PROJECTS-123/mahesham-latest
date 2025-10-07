@@ -15,14 +15,16 @@
                             <h2 class="display-5 mb-2"><a href="Dashboard.aspx">Dashboard</a> - Tenent</h2>
                             <div class="row g-3">
                                 <div class="col-lg-12 col-xl-6">
-                                    <div class="form-floating">
-                                        <asp:DropDownList runat="server" ID="_DropDownListType" AutoPostBack="true" OnSelectedIndexChanged="_DropDownListType_SelectedIndexChanged" class="form-control" ClientIDMode="Static">
-                                            <asp:ListItem Text="Main Tenent"></asp:ListItem>
-                                            <asp:ListItem Text="Partner Tenent"></asp:ListItem>
-                                        </asp:DropDownList>
-                                        <label for="_DropDownListType">Tenent Type</label>
-                                    </div>
+                                <div class="form-floating">
+                                    <asp:DropDownList runat="server" ID="_DropDownListType" AutoPostBack="true" 
+                                        OnSelectedIndexChanged="_DropDownListFacility_SelectedIndexChanged" 
+                                        class="form-control" ClientIDMode="Static">
+                                        <asp:ListItem Text="Main Tenant"></asp:ListItem>
+                                        <asp:ListItem Text="Partner Tenant"></asp:ListItem>
+                                    </asp:DropDownList>
+                                    <label for="_DropDownListType">Tenant Type</label>
                                 </div>
+                            </div>
                                 <div class="col-lg-12 col-xl-6">
                                     <div class="form-floating">
                                         <asp:DropDownList runat="server" ID="_DropDownListFacility" AutoPostBack="true" OnSelectedIndexChanged="_DropDownListFacility_SelectedIndexChanged" class="form-control" ClientIDMode="Static">
