@@ -31,7 +31,7 @@ namespace Maheshamv3
         protected void btnDeactivate_Click(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
-            int tenantId = Convert.ToInt32(btn.CommandArgument);
+            int tenantId = Convert.ToInt32(btn.CommandArgument);  
             DataTable dt = Utility._GetDataTable(@"SELECT t.Name AS TenantName,t.Email,t.Mobile1,f.Building + ' ' + f.Title + ' ' + f.Location AS RoomName FROM Tenant t INNER JOIN Facility f ON f.Id = t.Facility WHERE t.ID = " + tenantId);
             if (dt.Rows.Count == 0) return;
             string tenantName = dt.Rows[0]["TenantName"].ToString();

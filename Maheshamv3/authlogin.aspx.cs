@@ -11,8 +11,12 @@ namespace Maheshamv3
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+                if (Request.Cookies["userInfo"] != null)
+                    Response.Cookies["userInfo"].Expires = DateTime.Now.AddDays(-1);
 
         }
+    
         protected void ButtonSign_Click(object sender, EventArgs e)
         {
             Boolean IsAdmin = true;

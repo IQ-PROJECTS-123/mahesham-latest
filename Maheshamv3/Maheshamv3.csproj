@@ -171,6 +171,7 @@
     <Content Include="Rental.aspx" />
     <Content Include="RentGenerator.aspx" />
     <Content Include="ROOMLedger.aspx" />
+    <Content Include="Tenant_logger.aspx" />
     <Content Include="Tenent.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -244,6 +245,13 @@
     </Compile>
     <Compile Include="Gallery.aspx.designer.cs">
       <DependentUpon>Gallery.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Gen.Master.cs">
+      <DependentUpon>Gen.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Gen.Master.designer.cs">
+      <DependentUpon>Gen.Master</DependentUpon>
     </Compile>
     <Compile Include="KYCData.aspx.cs">
       <DependentUpon>KYCData.aspx</DependentUpon>
@@ -337,6 +345,20 @@
     <Compile Include="Site.Master.designer.cs">
       <DependentUpon>Site.Master</DependentUpon>
     </Compile>
+    <Compile Include="Tenant.Master.cs">
+      <DependentUpon>Tenant.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Tenant.Master.designer.cs">
+      <DependentUpon>Tenant.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Tenant_logger.aspx.cs">
+      <DependentUpon>Tenant_logger.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Tenant_logger.aspx.designer.cs">
+      <DependentUpon>Tenant_logger.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Tenent.aspx.cs">
       <DependentUpon>Tenent.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -348,6 +370,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="lib\owlcarousel\LICENSE" />
+    <Content Include="Gen.Master" />
     <None Include="packages.config" />
     <Content Include="scss\bootstrap.scss" />
     <Content Include="scss\bootstrap\scss\bootstrap-grid.scss" />
@@ -439,6 +462,7 @@
     <Content Include="Web - Copy.Release.config">
       <DependentUpon>Web - Copy.config</DependentUpon>
     </Content>
+    <Content Include="Tenant.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace Maheshamv3
 {
-    public partial class Site : System.Web.UI.MasterPage
+    public partial class Tenant : System.Web.UI.MasterPage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -17,8 +17,12 @@ namespace Maheshamv3
                 Response.Redirect("~/authlogin.aspx");
             else
             {
-                if (!reqCookies["Admin"].ToString().Equals("A"))
+                if (!reqCookies["Tenant"].ToString().Equals("T"))
+                {
                     Response.Redirect("~/authlogin.aspx");
+                    _LiteralLog.Text = " <a href='authlogin.aspx' class='btn btn-primary rounded-pill text-white py-2 px-4 flex-wrap flex-sm-shrink-0'>Logout</a>";
+
+                }
             }
         }
     }
