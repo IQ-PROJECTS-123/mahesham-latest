@@ -33,7 +33,7 @@ namespace Maheshamv3
                 _TextBoxAmount.Text = dt.Rows[0]["MonthlyRent"].ToString();
                 _TextAdvPayment.Text = dt.Rows[0]["Advance"].ToString();
                 _TextBoxEmail.Text = dt.Rows[0]["Email"].ToString();
-                _TextBoxPWD.Text = dt.Rows[0]["PWD"].ToString();   // ✅ corrected here
+                _TextBoxPWD.Text = dt.Rows[0]["PWD"].ToString();  
                 _TextBoxFather.Text = dt.Rows[0]["FatherName"].ToString();
                 _TextBoxFContact.Text = dt.Rows[0]["HomeNumber"].ToString();
                 _TextBoxMeter.Text = dt.Rows[0]["MeterReadingStart"].ToString();
@@ -66,7 +66,6 @@ namespace Maheshamv3
             string tenantId = Request.QueryString["ID"];
             string password = _TextBoxPWD.Text.Trim();
 
-            // If editing existing tenant and password is empty, fetch old password
             if (!string.IsNullOrEmpty(tenantId) && string.IsNullOrEmpty(password))
             {
                 DataTable dtOld = Utility._GetDataTable("SELECT PWD FROM Tenant WHERE ID=" + tenantId);
@@ -76,7 +75,6 @@ namespace Maheshamv3
                 }
             }
 
-            // If new tenant and password is empty, show error
             if (string.IsNullOrEmpty(password))
             {
                 _LiteralMSG.Text = "<div class='p-3 mb-2 bg-danger text-white'>Please enter a password!</div>";
