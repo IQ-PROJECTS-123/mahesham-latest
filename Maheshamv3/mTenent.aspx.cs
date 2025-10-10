@@ -19,6 +19,7 @@ namespace Maheshamv3
                 }
             }
         }
+
         private void LoadTenantData(string tenantId)
         {
             DataTable dt = Utility._GetDataTable("SELECT *, FORMAT(RentStart,'yyyy-MM-dd') as StartOn FROM Tenant WHERE ID=" + tenantId);
@@ -32,7 +33,7 @@ namespace Maheshamv3
                 _TextBoxAmount.Text = dt.Rows[0]["MonthlyRent"].ToString();
                 _TextAdvPayment.Text = dt.Rows[0]["Advance"].ToString();
                 _TextBoxEmail.Text = dt.Rows[0]["Email"].ToString();
-                _TextBoxPWD.Text = dt.Rows[0]["Password"].ToString();   
+                _TextBoxPWD.Text = dt.Rows[0]["PassWord"].ToString();
                 _TextBoxFather.Text = dt.Rows[0]["FatherName"].ToString();
                 _TextBoxFContact.Text = dt.Rows[0]["HomeNumber"].ToString();
                 _TextBoxMeter.Text = dt.Rows[0]["MeterReadingStart"].ToString();
@@ -51,6 +52,7 @@ namespace Maheshamv3
                 _LiteralMSG.Text = "<div class='p-3 mb-2 bg-danger text-white'>Please select a room.</div>";
                 return;
             }
+
             if (_DropDownListType.SelectedValue == "Main Tenant")
             {
                 DataTable dtCheck = Utility._GetDataTable("SELECT * FROM Tenant WHERE Facility=" + _DropDownListFacility.SelectedValue + " AND TenantType='Main Tenant' AND Active=1");
@@ -61,10 +63,31 @@ namespace Maheshamv3
                 }
             }
 
-            string query = String.IsNullOrEmpty(Request.QueryString["ID"])
+            string tenantId = Request.QueryString["ID"];
+            string password = _TextBoxPWD.Text.Trim();
+
+            // If editing existing tenant and password is empty, fetch old password
+            if (!string.IsNullOrEmpty(tenantId) && string.IsNullOrEmpty(password))
+            {
+                DataTable dtOld = Utility._GetDataTable("SELECT PassWord FROM Tenant WHERE ID=" + tenantId);
+                if (dtOld.Rows.Count > 0)
+                {
+                    password = dtOld.Rows[0]["PassWord"].ToString();
+                }
+            }
+
+            // If new tenant and password is empty, show error
+            if (string.IsNullOrEmpty(password))
+            {
+                _LiteralMSG.Text = "<div class='p-3 mb-2 bg-danger text-white'>Please enter a password!</div>";
+                return;
+            }
+            string query = string.IsNullOrEmpty(tenantId)
                 ? "INSERT INTO Tenant(MeterReadingStart,TenantType,Name,Mobile1,Mobile2,Email,PassWord,Address,FatherName,HomeNumber,AadharNumber,PANNumber,VoterNumber,Facility,MonthlyRent,Advance,RentStart,Active) " +
                   "VALUES(@MeterReadingStart,@TenantType,@Name,@Mobile1,@Mobile2,@Email,@PassWord,@Address,@FatherName,@HomeNumber,@AadharNumber,@PANNumber,@VoterNumber,@Facility,@MonthlyRent,@Advance,@RentStart,1)"
-                : "UPDATE Tenant SET MeterReadingStart=@MeterReadingStart,TenantType=@TenantType,Name=@Name,Mobile1=@Mobile1,Mobile2=@Mobile2,Email=@Email,PassWord=@PassWord,Address=@Address,FatherName=@FatherName,HomeNumber=@HomeNumber,AadharNumber=@AadharNumber,PANNumber=@PANNumber,VoterNumber=@VoterNumber,Facility=@Facility,MonthlyRent=@MonthlyRent,Advance=@Advance,RentStart=@RentStart WHERE ID" + Request.QueryString["ID"];
+                : "UPDATE Tenant SET MeterReadingStart=@MeterReadingStart, TenantType=@TenantType, Name=@Name, Mobile1=@Mobile1, Mobile2=@Mobile2, Email=@Email, PassWord=@PassWord, Address=@Address, FatherName=@FatherName, HomeNumber=@HomeNumber, AadharNumber=@AadharNumber, PANNumber=@PANNumber, VoterNumber=@VoterNumber, Facility=@Facility, MonthlyRent=@MonthlyRent, Advance=@Advance, RentStart=@RentStart WHERE ID=" + tenantId;
+
+
 
             Utility.ExecuteQuery(query, false,
                 new SqlParameter("@MeterReadingStart", _TextBoxMeter.Text),
@@ -73,7 +96,7 @@ namespace Maheshamv3
                 new SqlParameter("@Mobile1", _TextBoxMobile1.Text),
                 new SqlParameter("@Mobile2", _TextBoxMobile2.Text),
                 new SqlParameter("@Email", _TextBoxEmail.Text),
-                new SqlParameter("@PassWord", _TextBoxPWD.Text),    
+                new SqlParameter("@PassWord", _TextBoxPWD.Text),
                 new SqlParameter("@Advance", _TextAdvPayment.Text),
                 new SqlParameter("@Address", _TextBoxAddress.Text),
                 new SqlParameter("@FatherName", _TextBoxFather.Text),
@@ -109,7 +132,6 @@ namespace Maheshamv3
             string query = "";
             if (_DropDownListType.SelectedValue == "Main Tenant")
             {
-                // Rooms without main tenant
                 query = @"SELECT f.ID, f.Building+' '+f.Location+' - '+ f.Title as Title 
                           FROM Facility f 
                           WHERE NOT ID IN (SELECT Facility FROM Tenant WHERE Active=1 AND TenantType='Main Tenant') 
@@ -117,7 +139,6 @@ namespace Maheshamv3
             }
             else
             {
-                // Rooms with existing main tenant
                 query = @"SELECT DISTINCT f.ID, f.Building+' '+f.Location+' - '+ f.Title as Title 
                           FROM Facility f
                           INNER JOIN Tenant t ON t.Facility=f.ID
@@ -137,13 +158,18 @@ namespace Maheshamv3
         {
             if (_DropDownListType.SelectedValue == "Partner Tenant")
             {
-                DataTable dt = Utility._GetDataTable("SELECT RentStart, MonthlyRent, MeterReadingStart FROM Tenant WHERE TenantType='Main Tenant' AND Facility=" + _DropDownListFacility.SelectedValue);
-                if (dt.Rows.Count > 0)
+                if (!string.IsNullOrEmpty(_DropDownListFacility.SelectedValue))
                 {
-                    _TextBoxAmount.Text = dt.Rows[0]["MonthlyRent"].ToString();
-                    _TextBoxMeter.Text = dt.Rows[0]["MeterReadingStart"].ToString();
-                    _TextBoxStartDate.Text = Convert.ToDateTime(dt.Rows[0]["RentStart"]).ToString("yyyy-MM-dd");
+                    string query = "SELECT RentStart, MonthlyRent, MeterReadingStart FROM Tenant WHERE TenantType='Main Tenant' AND Facility=" + _DropDownListFacility.SelectedValue;
+                    DataTable dt = Utility._GetDataTable(query);
+                    if (dt.Rows.Count > 0)
+                    {
+                        _TextBoxAmount.Text = dt.Rows[0]["MonthlyRent"].ToString();
+                        _TextBoxMeter.Text = dt.Rows[0]["MeterReadingStart"].ToString();
+                        _TextBoxStartDate.Text = Convert.ToDateTime(dt.Rows[0]["RentStart"]).ToString("yyyy-MM-dd");
+                    }
                 }
+
             }
         }
 
