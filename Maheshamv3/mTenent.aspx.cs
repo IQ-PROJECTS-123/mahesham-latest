@@ -33,7 +33,7 @@ namespace Maheshamv3
                 _TextBoxAmount.Text = dt.Rows[0]["MonthlyRent"].ToString();
                 _TextAdvPayment.Text = dt.Rows[0]["Advance"].ToString();
                 _TextBoxEmail.Text = dt.Rows[0]["Email"].ToString();
-                _TextBoxPWD.Text = dt.Rows[0]["PassWord"].ToString();
+                _TextBoxPWD.Text = dt.Rows[0]["PWD"].ToString();   // ✅ corrected here
                 _TextBoxFather.Text = dt.Rows[0]["FatherName"].ToString();
                 _TextBoxFContact.Text = dt.Rows[0]["HomeNumber"].ToString();
                 _TextBoxMeter.Text = dt.Rows[0]["MeterReadingStart"].ToString();
@@ -69,10 +69,10 @@ namespace Maheshamv3
             // If editing existing tenant and password is empty, fetch old password
             if (!string.IsNullOrEmpty(tenantId) && string.IsNullOrEmpty(password))
             {
-                DataTable dtOld = Utility._GetDataTable("SELECT PassWord FROM Tenant WHERE ID=" + tenantId);
+                DataTable dtOld = Utility._GetDataTable("SELECT PWD FROM Tenant WHERE ID=" + tenantId);
                 if (dtOld.Rows.Count > 0)
                 {
-                    password = dtOld.Rows[0]["PassWord"].ToString();
+                    password = dtOld.Rows[0]["PWD"].ToString();
                 }
             }
 
@@ -82,12 +82,12 @@ namespace Maheshamv3
                 _LiteralMSG.Text = "<div class='p-3 mb-2 bg-danger text-white'>Please enter a password!</div>";
                 return;
             }
+
+            // ✅ Corrected INSERT query (PWD column fixed)
             string query = string.IsNullOrEmpty(tenantId)
-                ? "INSERT INTO Tenant(MeterReadingStart,TenantType,Name,Mobile1,Mobile2,Email,PassWord,Address,FatherName,HomeNumber,AadharNumber,PANNumber,VoterNumber,Facility,MonthlyRent,Advance,RentStart,Active) " +
-                  "VALUES(@MeterReadingStart,@TenantType,@Name,@Mobile1,@Mobile2,@Email,@PassWord,@Address,@FatherName,@HomeNumber,@AadharNumber,@PANNumber,@VoterNumber,@Facility,@MonthlyRent,@Advance,@RentStart,1)"
-                : "UPDATE Tenant SET MeterReadingStart=@MeterReadingStart, TenantType=@TenantType, Name=@Name, Mobile1=@Mobile1, Mobile2=@Mobile2, Email=@Email, PassWord=@PassWord, Address=@Address, FatherName=@FatherName, HomeNumber=@HomeNumber, AadharNumber=@AadharNumber, PANNumber=@PANNumber, VoterNumber=@VoterNumber, Facility=@Facility, MonthlyRent=@MonthlyRent, Advance=@Advance, RentStart=@RentStart WHERE ID=" + tenantId;
-
-
+                ? "INSERT INTO Tenant(MeterReadingStart,TenantType,Name,Mobile1,Mobile2,Email,PWD,Address,FatherName,HomeNumber,AadharNumber,PANNumber,VoterNumber,Facility,MonthlyRent,Advance,RentStart,Active) " +
+                  "VALUES(@MeterReadingStart,@TenantType,@Name,@Mobile1,@Mobile2,@Email,@PWD,@Address,@FatherName,@HomeNumber,@AadharNumber,@PANNumber,@VoterNumber,@Facility,@MonthlyRent,@Advance,@RentStart,1)"
+                : "UPDATE Tenant SET MeterReadingStart=@MeterReadingStart, TenantType=@TenantType, Name=@Name, Mobile1=@Mobile1, Mobile2=@Mobile2, Email=@Email, PWD=@PWD, Address=@Address, FatherName=@FatherName, HomeNumber=@HomeNumber, AadharNumber=@AadharNumber, PANNumber=@PANNumber, VoterNumber=@VoterNumber, Facility=@Facility, MonthlyRent=@MonthlyRent, Advance=@Advance, RentStart=@RentStart WHERE ID=" + tenantId;
 
             Utility.ExecuteQuery(query, false,
                 new SqlParameter("@MeterReadingStart", _TextBoxMeter.Text),
@@ -96,7 +96,7 @@ namespace Maheshamv3
                 new SqlParameter("@Mobile1", _TextBoxMobile1.Text),
                 new SqlParameter("@Mobile2", _TextBoxMobile2.Text),
                 new SqlParameter("@Email", _TextBoxEmail.Text),
-                new SqlParameter("@PassWord", _TextBoxPWD.Text),
+                new SqlParameter("@PWD", password),
                 new SqlParameter("@Advance", _TextAdvPayment.Text),
                 new SqlParameter("@Address", _TextBoxAddress.Text),
                 new SqlParameter("@FatherName", _TextBoxFather.Text),
@@ -169,7 +169,6 @@ namespace Maheshamv3
                         _TextBoxStartDate.Text = Convert.ToDateTime(dt.Rows[0]["RentStart"]).ToString("yyyy-MM-dd");
                     }
                 }
-
             }
         }
 
