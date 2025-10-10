@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="mTenent.aspx.cs" Inherits="Maheshamv3.mTenent" UnobtrusiveValidationMode="None" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -11,16 +12,16 @@
                             <h2 class="display-5 mb-2"><a href="Dashboard.aspx">Dashboard</a> - Tenent</h2>
                             <div class="row g-3">
                                 <div class="col-lg-12 col-xl-6">
-                                <div class="form-floating">
-                                    <asp:DropDownList runat="server" ID="_DropDownListType" AutoPostBack="true" 
-                                        OnSelectedIndexChanged="_DropDownListFacility_SelectedIndexChanged" 
-                                        class="form-control" ClientIDMode="Static">
-                                        <asp:ListItem Text="Main Tenant"></asp:ListItem>
-                                        <asp:ListItem Text="Partner Tenant"></asp:ListItem>
-                                    </asp:DropDownList>
-                                    <label for="_DropDownListType">Tenant Type</label>
+                                    <div class="form-floating">
+                                        <asp:DropDownList runat="server" ID="_DropDownListType" AutoPostBack="true"
+                                            OnSelectedIndexChanged="_DropDownListFacility_SelectedIndexChanged"
+                                            class="form-control" ClientIDMode="Static">
+                                            <asp:ListItem Text="Main Tenant"></asp:ListItem>
+                                            <asp:ListItem Text="Partner Tenant"></asp:ListItem>
+                                        </asp:DropDownList>
+                                        <label for="_DropDownListType">Tenant Type</label>
+                                    </div>
                                 </div>
-                            </div>
                                 <div class="col-lg-12 col-xl-6">
                                     <div class="form-floating">
                                         <asp:DropDownList runat="server" ID="_DropDownListFacility" AutoPostBack="true" OnSelectedIndexChanged="_DropDownListFacility_SelectedIndexChanged" class="form-control" ClientIDMode="Static">
@@ -65,8 +66,18 @@
                                 </div>
                                 <div class="col-lg-12 col-xl-6">
                                     <div class="form-floating">
-                                        <asp:TextBox runat="server" ID="_TextBoxEmail" TextMode="Email" class="form-control" ClientIDMode="Static"></asp:TextBox>
+                                        <asp:TextBox runat="server" ID="_TextBoxEmail" TextMode="Email" required class="form-control" ClientIDMode="Static"></asp:TextBox>
                                         <label for="_TextBoxEmail">Your Email</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-xl-6">
+                                    <div class="form-floating position-relative">
+                                        <asp:TextBox runat="server" ID="_TextBoxPWD" CssClass="form-control pwd-field"
+                                            TextMode="Password" ClientIDMode="Static" placeholder="Password"></asp:TextBox>
+                                        <span class="position-absolute top-50 end-0 translate-middle-y pe-3" style="cursor: pointer;" id="togglePwd">
+                                            <i class="bi bi-eye" id="iconPwd"></i>
+                                        </span>
+                                        <label for="_TextBoxPWD">Password</label>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 col-xl-6">
@@ -111,7 +122,7 @@
                                         <label for="_TextBoxMobile2">Father's Contact</label>
                                     </div>
                                 </div>
-                                <div class="col-12 col-xl-6">
+                                <div class="col-12">
                                     <div class="form-floating">
                                         <asp:TextBox runat="server" ID="_TextBoxAddress" required placeholder="Leave a address here" class="form-control" TextMode="MultiLine" Rows="4" ClientIDMode="Static"></asp:TextBox>
                                         <label for="_TextBoxAddress">Address</label>
@@ -130,12 +141,12 @@
                                         <!-- Popup Alert for Validation -->
                                         <asp:ValidationSummary ID="vsPopup" runat="server" ShowMessageBox="true" ShowSummary="false" ValidationGroup="TenantForm" />
                                     </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-            </div>
-        </div>
+    </div>
 </asp:Content>

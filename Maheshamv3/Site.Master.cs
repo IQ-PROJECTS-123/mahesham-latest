@@ -17,7 +17,7 @@ namespace Maheshamv3
                 Response.Redirect("~/authlogin.aspx");
             else
             {
-                if (!reqCookies["Admin"].ToString().Equals("A"))
+                if (!reqCookies["IsAdmin"].ToString().Equals("A"))
                     Response.Redirect("~/authlogin.aspx");
             }
         }

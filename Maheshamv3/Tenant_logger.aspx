@@ -8,13 +8,11 @@
                 <div class="bg-light rounded p-4 pb-0">
                     <div class="row g-5 align-items-center">
                         <div class="col-lg-12 wow fadeInLeft" data-wow-delay="0.1s">
-                            <!-- Page Header -->
                             <h2 class="display-5 mb-2">
                                 <a href="Dashboard.aspx">Dashboard</a> - ROOM LEDGER
                             </h2> 
 
                             <div class="row g-3">
-                                <!-- Facility Dropdown -->
                                 <div class="col-lg-12 col-xl-6">
                                     <div class="form-floating">
                                         <asp:DropDownList runat="server" ID="_DropDownListFacility" AutoPostBack="true" 
@@ -24,7 +22,6 @@
                                     </div>
                                 </div>
 
-                                <!-- GridView -->
                                 <div class="col-12">
                                     <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="false" 
                                         class="table table-bordered table-condensed table-responsive table-hover"
@@ -53,8 +50,6 @@
                                             <asp:BoundField DataField="PaidAmount" HeaderText="Paid" />
                                             <asp:BoundField DataField="PaidOn" HeaderText="Paid On" />
                                             <asp:BoundField DataField="Due" HeaderText="Due" />
-
-                                            <!-- Conditional Action column -->
                                             <asp:TemplateField HeaderText="Action">
                                                 <ItemTemplate>
                                                     <asp:PlaceHolder ID="phAction" runat="server"></asp:PlaceHolder>

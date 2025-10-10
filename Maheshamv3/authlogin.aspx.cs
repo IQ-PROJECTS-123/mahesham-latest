@@ -37,8 +37,8 @@ namespace Maheshamv3
                     userInfo["uID"] = Convert.ToString(dt.Rows[0]["ID"]);
                    // userInfo["uPhoto"] = Convert.ToString(dt.Rows[0]["PhotoURL"]);
                     userInfo["uName"] = Convert.ToString(dt.Rows[0]["Name"]);
-                    userInfo["IsAdmin"] = "A"; //IsMentor ? Convert.ToString(dt.Rows[0]["IsAdmin"]) : "";
-                    userInfo["LoginType"] = "L";//IsMentor ? "M" : Convert.ToBoolean(dt.Rows[0]["Active"]) ? "S" : "A";
+                    userInfo["IsAdmin"] = "A";
+                    userInfo["LoginType"] = "L";
                     userInfo.Expires.Add(new TimeSpan(2, 0, 0));
                     Response.Cookies.Add(userInfo);
                     if (IsAdmin)

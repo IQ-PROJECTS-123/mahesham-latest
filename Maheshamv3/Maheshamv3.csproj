@@ -80,6 +80,7 @@
     <Content Include="Facilities.aspx" />
     <Content Include="Facility.aspx" />
     <Content Include="favicon.ico" />
+    <Content Include="Forgetpassword.aspx" />
     <Content Include="Gallery.aspx" />
     <Content Include="img\about-2.png" />
     <Content Include="img\About_3.png" />
@@ -238,6 +239,13 @@
     </Compile>
     <Compile Include="Facility.aspx.designer.cs">
       <DependentUpon>Facility.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forgetpassword.aspx.cs">
+      <DependentUpon>Forgetpassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forgetpassword.aspx.designer.cs">
+      <DependentUpon>Forgetpassword.aspx</DependentUpon>
     </Compile>
     <Compile Include="Gallery.aspx.cs">
       <DependentUpon>Gallery.aspx</DependentUpon>
