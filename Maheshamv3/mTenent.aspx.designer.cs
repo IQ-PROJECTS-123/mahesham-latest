@@ -96,6 +96,15 @@ namespace Maheshamv3
         protected global::System.Web.UI.WebControls.TextBox _TextBoxEmail;
 
         /// <summary>
+        /// _TextBoxPWD control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox _TextBoxPWD;
+
+        /// <summary>
         /// _TextBoxAadhar control.
         /// </summary>
         /// <remarks>

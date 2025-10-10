@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="Maheshamv3.Site" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Gen.master.cs" Inherits="Maheshamv3.Gen" %>
 
 <!DOCTYPE html>
 <html>
@@ -36,6 +36,14 @@
 <body>
     <form id="form1" runat="server">
 
+        <!-- Spinner -->
+        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <!-- Spinner End -->
+
         <!-- Topbar -->
         <div class="container-fluid bg-secondary px-5 d-none d-lg-block">
             <div class="row gx-0 align-items-center" style="height: 45px;">
@@ -63,6 +71,7 @@
                 </div>
             </div>
         </div>
+        <!-- Topbar End -->
 
         <!-- Navbar -->
         <div class="container-fluid position-relative p-0">
@@ -77,9 +86,9 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0">
                         <a href="Default.aspx" class="nav-item nav-link active">Home</a>
-                        <a href="Default.aspx#about" class="nav-item nav-link">About</a>
-                        <a href="Default.aspx#Room" class="nav-item nav-link">Facility</a>
-                        <a href="Default.aspx#Gallery" class="nav-item nav-link">Gallery</a>
+                       <a href="Default.aspx#about" class="nav-item nav-link">About</a>
+                         <a href="Default.aspx#Room" class="nav-item nav-link">Facility</a>
+                         <a href="Default.aspx#Gallery" class="nav-item nav-link">Gallery</a>
                         <a href="event.html" class="nav-item nav-link">Memorial</a>
                         <a href="SuccessStory.aspx" class="nav-item nav-link">Direction</a>
                     </div>
@@ -87,6 +96,7 @@
                 </div>
             </nav>
         </div>
+        <!-- Navbar End -->
 
         <!-- Main Content -->
         <div>
@@ -151,7 +161,7 @@
                     <!-- Newsletter -->
                     <div class="col-md-6 col-lg-6 col-xl-3">
                         <h4 class="text-white mb-4">Newsletter</h4>
-                        <p class="text-white mb-3">Stay connected with Mahesham! Subscribe to our newsletter to receive the latest updates, special offers, and news straight to your inbox.</p>
+                        <p class="text-white mb-3"> Stay connected with Mahesham! Subscribe to our newsletter to receive the latest updates, special offers, and news straight to your inbox.</p>
                         <div class="position-relative mx-auto rounded-pill">
                             <input class="form-control rounded-pill w-100 py-3 ps-4 pe-5" type="text" placeholder="Enter your email">
                             <button type="button" class="btn btn-primary rounded-pill position-absolute top-0 end-0 py-2 mt-2 me-2">SignUp</button>
@@ -161,6 +171,26 @@
                 </div>
             </div>
         </div>
+        <!-- Footer End -->
+
+        <!-- Copyright -->
+        <div class="container-fluid copyright py-4">
+            <div class="container">
+                <div class="row g-4 justify-content-between align-items-center">
+                    <div class="col-md-6 text-center text-md-start">
+                        <span class="text-white">
+                            <a href="https://mahesham.com/" class="border-bottom text-white">
+                                <i class="fas fa-copyright text-light me-2"></i>Mahesham.com
+                            </a>, All right reserved.
+                        </span>
+                    </div>
+                    <div class="col-md-6 text-center justify-content-between text-md-end text-white">
+                        Designed By <a class="border-bottom text-white" href="#">Teceon Software Private Limited</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Copyright End -->
 
         <!-- Back to Top -->
         <a href="#" class="btn btn-primary btn-lg-square back-to-top"><i class="fa fa-arrow-up"></i></a>
@@ -180,27 +210,42 @@
     <!-- Template JS -->
     <script src="js/main.js"></script>
 
-    <!-- Optional: Password Toggle JS (works if content page uses .pwd-wrapper) -->
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var pwdInput = document.querySelector('.pwd-field');
-            var toggleBtn = document.getElementById("togglePwd");
-            var icon = document.getElementById("iconPwd");
-
-            if (pwdInput && toggleBtn && icon) {
-                toggleBtn.addEventListener("click", function () {
-                    if (pwdInput.type === "password") {
-                        pwdInput.type = "text";
-                        icon.classList.remove("bi-eye");
-                        icon.classList.add("bi-eye-slash");
-                    } else {
-                        pwdInput.type = "password";
-                        icon.classList.remove("bi-eye-slash");
-                        icon.classList.add("bi-eye");
-                    }
-                });
-            }
+        // Smooth scroll for internal links
+        document.querySelectorAll('a.nav-link[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
         });
+        // Smooth scroll if same page
+        document.querySelectorAll('a[href*="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href.startsWith("#")) {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }
+            });
+        });
+        // Animation Observer
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add(entry.target.dataset.animate);
+                    entry.target.classList.add('animate__animated');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+
+        document.querySelectorAll('.animate__animated').forEach(el => observer.observe(el));
     </script>
 
 </body>

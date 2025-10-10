@@ -13,11 +13,9 @@
                     </div>
                 </div>
             </div>
-
             <!-- Owl Carousel -->
             <div class="training-carousel owl-carousel pt-5 wow fadeInUp" data-wow-delay="0.1s" id="roomAccordion">
-
-                <!-- Single Room -->
+                <!-- Single Room --> 
                 <div class="training-item bg-white rounded">
                     <div class="training-img rounded-top position-relative">
                         <asp:Image ID="ImgSingleRoom" runat="server" ImageUrl="img/single.jpg"
@@ -115,7 +113,6 @@
                         At <span style="color: red; font-weight: bold;">Mahesham</span> PG Hostel, we understand that finding the right place 
                         to stay is more than just about rooms—it’s about comfort, safety, and a sense of belonging.
                     </p>
-
                     <!-- Facilities List -->
                     <div class="row g-4">
                         <div class="col-md-6 d-flex align-items-start">

@@ -39,7 +39,7 @@
                                     </asp:TemplateField>
                                        <asp:TemplateField HeaderText="Deactivate">
                                         <ItemTemplate>
-                                            <asp:Button ID="btnDeactivate" runat="server" Text="Deactivate"
+                                            <asp:Button ID="btnDeactivate" runat="server" Text="vacate"
                                                 CssClass="btn btn-danger btn-sm"
                                                 CommandArgument='<%# Eval("ID") %>'
                                                 OnClick="btnDeactivate_Click" />
