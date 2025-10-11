@@ -15,11 +15,10 @@
                             </h2>
                             <div class="row g-3">
                                 <!-- Building Dropdown -->
-                                <a href="Facility.aspx">Facility.aspx</a>
                                 <div class="col-lg-12 col-xl-6">
                                     <div class="form-floating">
                                         <asp:DropDownList runat="server" ID="_ddlBuilding" CssClass="form-control">
-                                            <asp:ListItem Text="-- Select Building --" Value=""></asp:ListItem>
+                                            <asp:ListItem Text=" Select Building " Value=""></asp:ListItem>
                                             <asp:ListItem Text="Mahesham-I" Value="Mahesham-1"></asp:ListItem>
                                             <asp:ListItem Text="Mahesham-II" Value="Mahesham-II"></asp:ListItem>
                                         </asp:DropDownList>

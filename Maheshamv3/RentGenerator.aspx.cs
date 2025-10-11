@@ -22,7 +22,7 @@ namespace Maheshamv3
         }
         protected void _ButtonSubmit_Click(object sender, EventArgs e)
         {
-            DataTable dt = Utility._GetDataTable(String.Format("select ID,facility,RentStart,MonthlyRent,MeterReadingStart from Tenant where TenantType='Main Tenent' and Active=1 {0}",_DropDownListFacility.SelectedIndex==0?"": "and Facility="+_DropDownListFacility.SelectedValue));
+            DataTable dt = Utility._GetDataTable(String.Format("select ID,facility,RentStart,MonthlyRent,MeterReadingStart from Tenant where TenantType='Main Tenant' and Active=1 {0}", _DropDownListFacility.SelectedIndex==0?"": "and Facility="+_DropDownListFacility.SelectedValue));
             foreach (DataRow dr in dt.Rows) 
             {
                 DataTable dtrent = Utility._GetDataTable(String.Format("Select * from Rent where Tenant={0} and rYear={1} and rMonth='{2}' and Facility={3} order by ID Desc",Convert.ToString(dr["ID"]),_DropDownListYear.SelectedValue,_DropDownListMonth.SelectedValue,_DropDownListFacility.SelectedValue));

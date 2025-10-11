@@ -188,6 +188,7 @@
                     </div>
                 </div>
                 <!-- Card 3 -->
+                <!-- Card 3: Payment Pending -->
                 <div class="col-12 col-md-6 col-xl-3">
                     <div class="dashboard-card bg-orange">
                         <i class="bi bi-clock-history"></i>
@@ -195,8 +196,10 @@
                         <div class="value">
                             <asp:Literal ID="_LiteralPending" runat="server" />
                         </div>
-                     </div>
+                        <a href="PaymentPending.aspx" class="dashboard-link">Go</a>
+                    </div>
                 </div>
+
                 <!-- Card 4 -->
                 <div class="col-12 col-md-6 col-xl-3">
                     <div class="dashboard-card bg-red">
