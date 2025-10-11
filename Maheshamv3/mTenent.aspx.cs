@@ -81,7 +81,6 @@ namespace Maheshamv3
                 return;
             }
 
-            // ✅ Corrected INSERT query (PWD column fixed)
             string query = string.IsNullOrEmpty(tenantId)
                 ? "INSERT INTO Tenant(MeterReadingStart,TenantType,Name,Mobile1,Mobile2,Email,PWD,Address,FatherName,HomeNumber,AadharNumber,PANNumber,VoterNumber,Facility,MonthlyRent,Advance,RentStart,Active) " +
                   "VALUES(@MeterReadingStart,@TenantType,@Name,@Mobile1,@Mobile2,@Email,@PWD,@Address,@FatherName,@HomeNumber,@AadharNumber,@PANNumber,@VoterNumber,@Facility,@MonthlyRent,@Advance,@RentStart,1)"
