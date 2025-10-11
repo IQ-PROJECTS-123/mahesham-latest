@@ -1,11 +1,13 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Dashboard.aspx.cs" Inherits="Maheshamv3.Dashboard" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
         .dashboard-wrapper {
             background-color: #f5f7fb;
             min-height: 100vh;
-            padding: 40px 40px;
+            padding: 40px;
         }
+
         .dashboard-title {
             font-size: 32px;
             font-weight: 700;
@@ -13,26 +15,26 @@
             margin-bottom: 30px;
             text-align: center;
         }
-        .value-circle {
-            width: 60px;
-            height: 40px;
-            background: #ffffff33;
-            border-radius: 40%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            font-weight: bold;
-            color: #fff;
-            margin: 10px auto;
+
+        @media (max-width: 576px) {
+            .col-xl-3,
+            .col-md-6 {
+                flex: 0 0 100% !important;
+                max-width: 100% !important;
+            }
+
+            .row.g-4 {
+                flex-direction: column !important;
+            }
         }
+
         .row.g-4 {
             display: flex;
             flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
             margin-left: 0;
             margin-right: 0;
-            justify-content: center; 
-            gap: 1.5rem;
         }
 
         .col-12.col-md-6.col-xl-3 {
@@ -41,6 +43,21 @@
             max-width: 25%;
             padding-left: 0.75rem;
             padding-right: 0.75rem;
+        }
+
+        @media (max-width: 992px) {
+            .col-xl-3 {
+                flex: 0 0 50%;
+                max-width: 50%;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .col-xl-3,
+            .col-md-6 {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
         }
 
         .dashboard-card {
@@ -56,15 +73,18 @@
             box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
         }
+
             .dashboard-card:hover {
                 transform: translateY(-6px);
                 box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
             }
+
             .dashboard-card i {
                 font-size: 38px;
                 margin-bottom: 15px;
                 transition: all 0.3s ease;
             }
+
             .dashboard-card:hover i {
                 transform: scale(1.15);
             }
@@ -75,10 +95,22 @@
                 margin-bottom: 8px;
             }
 
-            .dashboard-card .value {
+            .dashboard-card .value,
+            .dashboard-card .value-circle {
                 font-size: 26px;
                 font-weight: 700;
             }
+
+        .value-circle {
+            width: 60px;
+            height: 40px;
+            background: #ffffff33;
+            border-radius: 40%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10px auto;
+        }
 
         .dashboard-link {
             display: inline-block;
@@ -91,9 +123,11 @@
             text-decoration: none;
             transition: all 0.3s;
         }
+
             .dashboard-link:hover {
                 background-color: rgba(255, 255, 255, 0.4);
             }
+
         .bg-blue {
             background: linear-gradient(135deg, #2196f3, #21cbf3);
         }
@@ -125,23 +159,12 @@
         .bg-pink {
             background: linear-gradient(135deg, #d81b60, #f06292);
         }
-        @media (max-width: 992px) {
-            .col-xl-3 {
-                flex: 0 0 50%;
-                max-width: 50%;
-            }
-        }
-        @media (max-width: 576px) {
-            .col-xl-3, .col-md-6 {
-                flex: 0 0 100%;
-                max-width: 100%;
-            }
-        }
     </style>
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="dashboard-wrapper">
-        <div class="container-fluid justify-content-between">
+        <div class="container-fluid">
             <h2 class="dashboard-title">🏠 Dashboard Overview</h2>
             <div class="row g-4">
                 <!-- Card 1 -->
@@ -172,7 +195,7 @@
                         <div class="value">
                             <asp:Literal ID="_LiteralPending" runat="server" />
                         </div>
-                    </div>
+                     </div>
                 </div>
                 <!-- Card 4 -->
                 <div class="col-12 col-md-6 col-xl-3">
