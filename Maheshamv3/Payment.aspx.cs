@@ -31,6 +31,8 @@ namespace Maheshamv3
                 ViewState["MeterEnd"] = row["MeterEnd"].ToString();
                 ViewState["Unit"] = row["Unit"].ToString();
                 ViewState["Bill"] = row["Bill"].ToString();
+                ViewState["PrevDue"] = row["Due"] != DBNull.Value ? row["Due"].ToString() : "0";
+
                 _ButtonSubmit.Visible = true;
             }
         }
@@ -76,13 +78,14 @@ namespace Maheshamv3
                 <tr><td><b>Electric Bill</b></td><td>{ViewState["Bill"]}</td></tr>
                 <tr><td><b>Payment Date</b></td><td>{indianTime:dd/MM/yyyy HH:mm}</td></tr>
                 <tr><td><b>Previous Due</b></td><td>{ViewState["PrevDue"]}</td></tr>
-                <tr><td><b>Total</b></td><td>{_LabelTotal}</td></tr>
+                <tr><td><b>Total</b></td><td>{_LabelTotal.Text}</td></tr>
                 <tr><td><b>Paid Amount</b></td><td>{paidAmount}</td></tr> 
                 <tr><td><b>Current Due</b></td><td>{dueAmount}</td></tr>
                 <tr><td><b>Remarks</b></td><td>{_TextBoxNote.Text}</td></tr>
                 <tr><td><b>Payment Type</b></td><td>{_DropDownListType.SelectedValue}</td></tr>
              </table>";
-            Utility._SendEmail("Shrikantkumar.info@gmail.com", "", "Payment Submitted", emailBody);
+            // Utility._SendEmail("Shrikantkumar.info@gmail.com", "", "Payment Submitted", emailBody);
+            Utility._SendEmail("rajnish5454kumar@gmail.com", "", "Payment Submitted", emailBody);
         }
     }
 }
