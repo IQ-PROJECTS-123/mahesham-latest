@@ -40,7 +40,7 @@ namespace Maheshamv3
                 return;
             }
             _LabelYearMonth.Text = _DropDownListMonth.SelectedItem.Text + " " + year;
-            string query = $@"SELECT t.Name AS Tenant, f.Title AS Room, DATENAME(MONTH, DATEFROMPARTS(r.rYear, r.rMonthNo, 1)) AS MonthName, r.rYear AS Year, FORMAT(r.PeriodStart, 'dd/MM/yyyy') AS PeriodStart, FORMAT(r.PeriodEnd, 'dd/MM/yyyy') AS PeriodEnd, r.MeterStart, r.MeterEnd, r.MeterEnd - r.MeterStart AS Unit,(r.MeterEnd - r.MeterStart) * 7 AS Bill, r.TotalAmount, r.PaidAmount,r.ID FROM Rent r INNER JOIN Tenant t ON r.Tenant = t.ID INNER JOIN Facility f ON r.Facility = f.ID WHERE t.Active = 1 AND t.TenantType = 'Main Tenent' AND r.rYear = {year} AND r.rMonthNo = {month} AND (r.TotalAmount - r.PaidAmount) > 0";  
+            string query = $@"SELECT t.Name AS Tenant, f.Title AS Room, DATENAME(MONTH, DATEFROMPARTS(r.rYear, r.rMonthNo, 1)) AS MonthName, r.rYear AS Year, FORMAT(r.PeriodStart, 'dd/MM/yyyy') AS PeriodStart, FORMAT(r.PeriodEnd, 'dd/MM/yyyy') AS PeriodEnd, r.MeterStart, r.MeterEnd, r.MeterEnd - r.MeterStart AS Unit,(r.MeterEnd - r.MeterStart) * 7 AS Bill, r.TotalAmount, r.PaidAmount,r.ID FROM Rent r INNER JOIN Tenant t ON r.Tenant = t.ID INNER JOIN Facility f ON r.Facility = f.ID WHERE t.Active = 1 AND t.TenantType = 'Main Tenant' AND r.rYear = {year} AND r.rMonthNo = {month} AND (r.TotalAmount - r.PaidAmount) > 0";  
             Utility._BindGridView(_GridView2, query);
         }
         protected void _ImageButtonView_Click(object sender, ImageClickEventArgs e)

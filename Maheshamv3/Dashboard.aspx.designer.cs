@@ -15,24 +15,6 @@ namespace Maheshamv3
     {
 
         /// <summary>
-        /// _LiteralTotalRooms control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal _LiteralTotalRooms;
-
-        /// <summary>
-        /// _Literalvacant control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal _Literalvacant;
-
-        /// <summary>
         /// _LiteralPending control.
         /// </summary>
         /// <remarks>
@@ -42,6 +24,15 @@ namespace Maheshamv3
         protected global::System.Web.UI.WebControls.Literal _LiteralPending;
 
         /// <summary>
+        /// _LiteralTotalRooms control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal _LiteralTotalRooms;
+
+        /// <summary>
         /// _LiteralDone control.
         /// </summary>
         /// <remarks>
@@ -49,5 +40,14 @@ namespace Maheshamv3
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal _LiteralDone;
+
+        /// <summary>
+        /// _Literalvacant control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal _Literalvacant;
     }
 }
