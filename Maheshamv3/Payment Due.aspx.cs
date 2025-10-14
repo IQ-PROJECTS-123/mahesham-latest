@@ -47,7 +47,7 @@ namespace Maheshamv3
         {
             ImageButton btn = (ImageButton)sender;
             string rentId = btn.CommandArgument;
-            Response.Redirect("Payment.aspx?ID=" + rentId);
+            Response.Redirect("~/Payment.aspx?ID=" + rentId);
         }
     }
 }
