@@ -167,7 +167,93 @@
         <div class="container-fluid">
             <h2 class="dashboard-title">🏠 Dashboard Overview</h2>
             <div class="row g-4">
-                <!-- Card 1 -->
+                <!-- 1️⃣ Add Facility -->
+                <div class="col-12 col-md-6 col-xl-3">
+                    <div class="dashboard-card bg-red">
+                        <i class="bi bi-building"></i>
+                        <h5>Add Facility</h5>
+                        <a href="Facility.aspx" class="dashboard-link">Go</a>
+                    </div>
+                </div>
+
+                <!-- 2️⃣ Add Tenant -->
+                <div class="col-12 col-md-6 col-xl-3">
+                    <div class="dashboard-card bg-green">
+                        <i class="bi bi-person-plus-fill"></i>
+                        <h5>Add Tenant</h5>
+                        <a href="mTenent.aspx" class="dashboard-link">Go</a>
+                    </div>
+                </div>
+
+                <!-- 3️⃣ Meter Reading -->
+                <div class="col-12 col-md-6 col-xl-3">
+                    <div class="dashboard-card bg-purple">
+                        <i class="bi bi-speedometer2"></i>
+                        <h5>Meter Reading</h5>
+                        <a href="MeterReading.aspx" class="dashboard-link">Go</a>
+                    </div>
+                </div>
+
+                <!-- 4️⃣ Rent Generator -->
+                <div class="col-12 col-md-6 col-xl-3">
+                    <div class="dashboard-card bg-teal">
+                        <i class="bi bi-calculator"></i>
+                        <h5>Rent Generator</h5>
+                        <a href="RentGenerator.aspx" class="dashboard-link">Go</a>
+                    </div>
+                </div>
+
+                <!-- 5️⃣ Payment Pending -->
+                <div class="col-12 col-md-6 col-xl-3">
+                    <div class="dashboard-card bg-orange">
+                        <i class="bi bi-clock-history"></i>
+                        <h5>Payment Pending</h5>
+                        <div class="value">
+                            <asp:Literal ID="_LiteralPending" runat="server" />
+                        </div>
+                        <a href="Payment Due.aspx" class="dashboard-link">Go</a>
+                    </div>
+                </div>
+
+
+
+                <!-- 7️⃣ Rental -->
+                <div class="col-12 col-md-6 col-xl-3">
+                    <div class="dashboard-card bg-pink">
+                        <i class="bi bi-receipt"></i>
+                        <h5>Rental</h5>
+                        <a href="Rental.aspx" class="dashboard-link">Go</a>
+                    </div>
+                </div>
+
+                <!-- 8️⃣ Room Ledger -->
+                <div class="col-12 col-md-6 col-xl-3">
+                    <div class="dashboard-card bg-gray">
+                        <i class="bi bi-journal-text"></i>
+                        <h5>Room Ledger</h5>
+                        <a href="ROOMLedger.aspx" class="dashboard-link">Go</a>
+                    </div>
+                </div>
+
+                <!-- 9️⃣ Tenant View -->
+                <div class="col-12 col-md-6 col-xl-3">
+                    <div class="dashboard-card bg-blue">
+                        <i class="bi bi-people-fill"></i>
+                        <h5>Tenant View</h5>
+                        <a href="Tenent.aspx" class="dashboard-link">Go</a>
+                    </div>
+                </div>
+
+                <!-- 🔟 Data Entry -->
+                <div class="col-12 col-md-6 col-xl-3">
+                    <div class="dashboard-card bg-orange">
+                        <i class="bi bi-file-bar-graph"></i>
+                        <h5>Data Entry</h5>
+                        <a href="DataEntry.aspx" class="dashboard-link">Go</a>
+                    </div>
+                </div>
+
+                <!-- 11️⃣ Total Rooms -->
                 <div class="col-12 col-md-6 col-xl-3">
                     <div class="dashboard-card bg-blue">
                         <i class="bi bi-house-door-fill"></i>
@@ -177,30 +263,8 @@
                         </div>
                     </div>
                 </div>
-                <!-- Card 2 -->
-                <div class="col-12 col-md-6 col-xl-3">
-                    <div class="dashboard-card bg-green">
-                        <i class="bi bi-door-open-fill"></i>
-                        <h5>Total Vacant</h5>
-                        <div class="value-circle">
-                            <asp:Literal ID="_Literalvacant" runat="server" />
-                        </div>
-                    </div>
-                </div>
-                <!-- Card 3 -->
-                <!-- Card 3: Payment Pending -->
-                <div class="col-12 col-md-6 col-xl-3">
-                    <div class="dashboard-card bg-orange">
-                        <i class="bi bi-clock-history"></i>
-                        <h5>Payment Pending</h5>
-                        <div class="value">
-                            <asp:Literal ID="_LiteralPending" runat="server" />
-                        </div>
-                        <a href="PaymentPending.aspx" class="dashboard-link">Go</a>
-                    </div>
-                </div>
 
-                <!-- Card 4 -->
+                <!-- 6️⃣ Payment Done -->
                 <div class="col-12 col-md-6 col-xl-3">
                     <div class="dashboard-card bg-red">
                         <i class="bi bi-check-circle-fill"></i>
@@ -210,71 +274,17 @@
                         </div>
                     </div>
                 </div>
-                <!-- Card 5 -->
-                <div class="col-12 col-md-6 col-xl-3">
-                    <div class="dashboard-card bg-purple">
-                        <i class="bi bi-speedometer2"></i>
-                        <h5>Meter Reading</h5>
-                        <a href="MeterReading.aspx" class="dashboard-link">Go</a>
-                    </div>
-                </div>
-                <!-- Card 6 -->
-                <div class="col-12 col-md-6 col-xl-3">
-                    <div class="dashboard-card bg-teal">
-                        <i class="bi bi-calculator"></i>
-                        <h5>Rent Generator</h5>
-                        <a href="RentGenerator.aspx" class="dashboard-link">Go</a>
-                    </div>
-                </div>
-                <!-- Card 7 -->
-                <div class="col-12 col-md-6 col-xl-3">
-                    <div class="dashboard-card bg-pink">
-                        <i class="bi bi-receipt"></i>
-                        <h5>Rental</h5>
-                        <a href="Rental.aspx" class="dashboard-link">Go</a>
-                    </div>
-                </div>
-                <!-- Card 8 -->
-                <div class="col-12 col-md-6 col-xl-3">
-                    <div class="dashboard-card bg-gray">
-                        <i class="bi bi-journal-text"></i>
-                        <h5>Room Ledger</h5>
-                        <a href="ROOMLedger.aspx" class="dashboard-link">Go</a>
-                    </div>
-                </div>
-                <!-- Card 9 -->
-                <div class="col-12 col-md-6 col-xl-3">
-                    <div class="dashboard-card bg-blue">
-                        <i class="bi bi-people-fill"></i>
-                        <h5>Tenant View</h5>
-                        <a href="Tenent.aspx" class="dashboard-link">Go</a>
-                    </div>
-                </div>
-                <!-- Card 10 -->
+                <!-- 12️⃣ Total Vacant -->
                 <div class="col-12 col-md-6 col-xl-3">
                     <div class="dashboard-card bg-green">
-                        <i class="bi bi-person-plus-fill"></i>
-                        <h5>Add Tenant</h5>
-                        <a href="mTenent.aspx" class="dashboard-link">Go</a>
-                    </div>
-                </div>
-                <!-- Card 11 -->
-                <div class="col-12 col-md-6 col-xl-3">
-                    <div class="dashboard-card bg-orange">
-                        <i class="bi bi-file-bar-graph"></i>
-                        <h5>Data Entry</h5>
-                        <a href="DataEntry.aspx" class="dashboard-link">Go</a>
-                    </div>
-                </div>
-                <!-- Card 12 -->
-                <div class="col-12 col-md-6 col-xl-3">
-                    <div class="dashboard-card bg-red">
-                        <i class="bi bi-building"></i>
-                        <h5>Add Facility</h5>
-                        <a href="Facility.aspx" class="dashboard-link">Go</a>
+                        <i class="bi bi-door-open-fill"></i>
+                        <h5>Total Vacant</h5>
+                        <div class="value-circle">
+                            <asp:Literal ID="_Literalvacant" runat="server" />
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+        </div>
 </asp:Content>

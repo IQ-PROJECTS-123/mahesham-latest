@@ -14,7 +14,7 @@ namespace Maheshamv3
             if (!IsPostBack) 
             {
                 _LiteralTotalRooms.Text = Convert.ToString(Utility._GetDataTable("Select COUNT(ID) as Total from facility where Active=1").Rows[0][0]);
-                _Literalvacant.Text = Convert.ToString(Utility._GetDataTable("select COUNT(ID) as Vacant from facility   where not ID in (select facility from Tenant where Active=1  and TenantType='Main Tenent')").Rows[0][0]);
+                _Literalvacant.Text = Convert.ToString(Utility._GetDataTable("select COUNT(ID) as Vacant from facility   where not ID in (select facility from Tenant where Active=1  and TenantType='Main Tenant')").Rows[0][0]);
                // _LiteralPending.Text = Convert.ToString(Utility._GetDataTable("").Rows[0][0]);
                // _LiteralDone.Text = Convert.ToString(Utility._GetDataTable("").Rows[0][0]);
             }

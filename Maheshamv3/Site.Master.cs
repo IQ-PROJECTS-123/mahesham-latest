@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace Maheshamv3
 {
@@ -11,14 +8,39 @@ namespace Maheshamv3
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            _LiteralLog.Text = " <a href='authlogin.aspx' class='btn btn-primary rounded-pill text-white py-2 px-4 flex-wrap flex-sm-shrink-0'>Login</a>";
-            HttpCookie reqCookies = Request.Cookies["userInfo"];
-            if (reqCookies == null)
+            if (!IsPostBack)
+            {
+                HttpCookie reqCookies = Request.Cookies["userInfo"];
+
+                if (reqCookies == null)
+                {
+                    ButtonLoginLogout.Text = "Login";
+                    ButtonLoginLogout.CssClass = "btn btn-primary rounded-pill py-2 px-4 ms-2";
+                }
+                else
+                {
+                    ButtonLoginLogout.Text = "Logout";
+                    ButtonLoginLogout.CssClass = "btn btn-danger rounded-pill py-2 px-4 ms-2";
+                }
+            }
+        }
+
+        protected void ButtonLoginLogout_Click(object sender, EventArgs e)
+        {
+            if (ButtonLoginLogout.Text == "Login")
+            {
                 Response.Redirect("~/authlogin.aspx");
+            }
             else
             {
-                if (!reqCookies["IsAdmin"].ToString().Equals("A"))
-                    Response.Redirect("~/authlogin.aspx");
+                HttpCookie reqCookies = Request.Cookies["userInfo"];
+                if (reqCookies != null)
+                {
+                    reqCookies.Expires = DateTime.Now.AddDays(-1);
+                    Response.Cookies.Add(reqCookies);
+                }
+
+                Response.Redirect("~/authlogin.aspx");
             }
         }
     }
