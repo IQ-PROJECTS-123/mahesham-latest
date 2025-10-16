@@ -66,7 +66,7 @@
                                 </div>
                                 <div class="col-lg-12 col-xl-6">
                                     <div class="form-floating">
-                                        <asp:TextBox runat="server" ID="_TextBoxEmail" TextMode="Email" required class="form-control" ClientIDMode="Static"></asp:TextBox>
+                                        <asp:TextBox runat="server" ID="_TextBoxEmail" TextMode="Email" class="form-control" ClientIDMode="Static"></asp:TextBox>
                                         <label for="_TextBoxEmail">Your Email</label>
                                     </div>
                                 </div>
