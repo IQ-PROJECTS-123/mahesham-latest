@@ -84,7 +84,7 @@ namespace Maheshamv3
                 <tr><td><b>Remarks</b></td><td>{_TextBoxNote.Text}</td></tr>
                 <tr><td><b>Payment Type</b></td><td>{_DropDownListType.SelectedValue}</td></tr>
              </table>";
-            // Utility._SendEmail("Shrikantkumar.info@gmail.com", "", "Payment Submitted", emailBody);
+            Utility._SendEmail("Shrikantkumar.info@gmail.com", "", "Payment Submitted", emailBody);
             Utility._SendEmail("rajnish5454kumar@gmail.com", "", "Payment Submitted", emailBody);
         }
     }

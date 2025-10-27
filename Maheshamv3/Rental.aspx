@@ -67,6 +67,7 @@
                     <asp:BoundField DataField="MeterStart" HeaderText="Meter Start" />
                     <asp:BoundField DataField="MeterEnd" HeaderText="Meter End" />
                     <asp:BoundField DataField="Unit" HeaderText="Unit" />
+                    <asp:BoundField DataField="AmountType" HeaderText="Type" />
                     <asp:BoundField DataField="Bill" HeaderText="Bill" />
                     <asp:BoundField DataField="TotalAmount" HeaderText="Total Amount" />
                     <asp:TemplateField HeaderText="Action">
