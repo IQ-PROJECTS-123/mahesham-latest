@@ -25,14 +25,13 @@ namespace Maheshamv3
                 _LabelName.Text = row["Name"].ToString();
                 _LabelRoom.Text = row["facility"].ToString();
                 _TextBoxAmount.Text = _LabelTotal.Text = row["TotalAmount"].ToString();
-                ViewState["Amount"] = row["Amount"].ToString();
                 ViewState["PeriodStart"] = row["PeriodStart"].ToString();
                 ViewState["PeriodEnd"] = row["PeriodEnd"].ToString();
                 ViewState["MeterStart"] = row["MeterStart"].ToString();
                 ViewState["MeterEnd"] = row["MeterEnd"].ToString();
                 ViewState["Unit"] = row["Unit"].ToString();
                 ViewState["Bill"] = row["Bill"].ToString();
-                //  ViewState["PrevDue"] = row["Due"] != DBNull.Value ? row["Due"].ToString() : "0";
+              //  ViewState["PrevDue"] = row["Due"] != DBNull.Value ? row["Due"].ToString() : "0";
 
                 _ButtonSubmit.Visible = true;
             }
@@ -70,8 +69,7 @@ namespace Maheshamv3
             string emailBody = $@"<h3>Payment Details</h3><table border='1' cellpadding='6' cellspacing='0' style='border-collapse:collapse;width:70%;font-family:Arial;font-size:14px;'>
                 <tr><td><b>Tenant</b></td><td>{_LabelName.Text}</td></tr>
                 <tr><td><b>Room</b></td><td>{_LabelRoom.Text}</td></tr>
-                <tr><td><b>Month</b></td><td>{_LabelMonth.Text}</td></tr>
-                <tr><td><b>Month Rent</b></td><td>{ViewState["Amount"]}</td></tr> 
+               <tr><td><b>Month</b></td><td>{_LabelMonth.Text}</td></tr>
                 <tr><td><b>Period Start</b></td><td>{ViewState["PeriodStart"]}</td></tr>
                 <tr><td><b>Period End</b></td><td>{ViewState["PeriodEnd"]}</td></tr>
                 <tr><td><b>Meter Start</b></td><td>{ViewState["MeterStart"]}</td></tr>
@@ -81,13 +79,13 @@ namespace Maheshamv3
                 <tr><td><b>Payment Date</b></td><td>{indianTime:dd/MM/yyyy HH:mm}</td></tr>
                 <tr><td><b>Previous Due</b></td><td>{ViewState["PrevDue"]}</td></tr>
                 <tr><td><b>Total</b></td><td>{_LabelTotal.Text}</td></tr>
-                <tr><td><b>Paid Amount</b></td><td>{paidAmount}</td></tr>
+                <tr><td><b>Paid Amount</b></td><td>{paidAmount}</td></tr> 
                 <tr><td><b>Current Due</b></td><td>{dueAmount}</td></tr>
                 <tr><td><b>Remarks</b></td><td>{_TextBoxNote.Text}</td></tr>
                 <tr><td><b>Payment Type</b></td><td>{_DropDownListType.SelectedValue}</td></tr>
-            </table>";
-             Utility._SendEmail("Shrikantkumar.info@gmail.com", "", "Payment Submitted", emailBody);
-             Utility._SendEmail("rajnish5454kumar@gmail.com", "", "Payment Submitted", emailBody);
+             </table>";
+            Utility._SendEmail("Shrikantkumar.info@gmail.com", "", "Payment Submitted", emailBody);
+            Utility._SendEmail("rajnish5454kumar@gmail.com", "", "Payment Submitted", emailBody);
         }
     }
 }
