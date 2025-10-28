@@ -19,6 +19,7 @@ namespace Maheshamv3
                 }
             }
         }
+
         private void LoadTenantData(string tenantId)
         {
             string query = $"SELECT *, FORMAT(RentStart,'yyyy-MM-dd') AS StartOn FROM Tenant WHERE ID={tenantId}";
@@ -27,6 +28,9 @@ namespace Maheshamv3
             if (dt.Rows.Count > 0)
             {
                 DataRow row = dt.Rows[0];
+                Utility._BindDropdown(_DropDownListFacility,
+                    "SELECT f.ID, f.Building+' '+f.Location+' - '+f.Title AS Title FROM Facility f",
+                    "ID", "Title", false);
 
                 _DropDownListType.SelectedValue = row["TenantType"].ToString();
                 _DropDownListFacility.SelectedValue = row["Facility"].ToString();
@@ -48,6 +52,7 @@ namespace Maheshamv3
                 _TextBoxStartDate.Text = row["StartOn"].ToString();
             }
         }
+
         protected void _ButtonSubmit_Click(object sender, EventArgs e)
         {
             if (_DropDownListFacility.SelectedIndex == 0)
@@ -56,9 +61,18 @@ namespace Maheshamv3
                 return;
             }
 
+            string tenantId = Request.QueryString["ID"];
+
+            // ✅ Main Tenant validation (ignore same record when updating)
             if (_DropDownListType.SelectedValue == "Main Tenant")
             {
-                string checkQuery = $"SELECT * FROM Tenant WHERE Facility={_DropDownListFacility.SelectedValue} AND TenantType='Main Tenant' AND Active=1";
+                string checkQuery = $@"
+                    SELECT * FROM Tenant 
+                    WHERE Facility={_DropDownListFacility.SelectedValue} 
+                      AND TenantType='Main Tenant' 
+                      AND Active=1
+                      {(string.IsNullOrEmpty(tenantId) ? "" : $"AND ID <> {tenantId}")}";
+
                 if (Utility._GetDataTable(checkQuery).Rows.Count > 0)
                 {
                     ShowMessage("Main Tenant already exists in this room. Please select Partner Tenant.", false);
@@ -66,9 +80,9 @@ namespace Maheshamv3
                 }
             }
 
-            string tenantId = Request.QueryString["ID"];
             string password = _TextBoxPWD.Text.Trim();
 
+            // ✅ Keep old password if blank during edit
             if (!string.IsNullOrEmpty(tenantId) && string.IsNullOrEmpty(password))
             {
                 DataTable dtOld = Utility._GetDataTable($"SELECT PWD FROM Tenant WHERE ID={tenantId}");
@@ -111,6 +125,27 @@ namespace Maheshamv3
                 new SqlParameter("@Advance", _TextAdvPayment.Text),
                 new SqlParameter("@RentStart", _TextBoxStartDate.Text)
             );
+            if(string.IsNullOrEmpty(tenantId))            
+                tenantId = Convert.ToString(Utility._GetDataTable("select ID from Tenant where TenantType='Main Tenant' and Active=1 and facility="+_DropDownListFacility.SelectedValue).Rows[0]["ID"]);
+            DateTime _Time = Convert.ToDateTime(_TextBoxStartDate.Text);
+            
+            Utility.ExecuteQuery(@"If exists(SELECT * from Rent where Facility=@Facility and Tenant=@Tenant)            
+                                    BEGIN
+                                    Update Rent SET TotalAmount=@TotalAmount,Amount=@TotalAmount,PaidAmount=@TotalAmount where Facility=@Facility and Tenant=@Tenant
+                                    End                    
+                                    else            
+                                    begin
+                                    INSERT INTO Rent(Facility, Tenant, Amount, rMonth, rYear, rMonthNo, TotalAmount,PaidAmount, Active, AmountType, Status)VALUES(@Facility, @Tenant, @TotalAmount, @rMonth, @rYear, @rMonthNo,@TotalAmount, @TotalAmount, 1,'Advance','Completed')
+                                    End",
+                       false,
+                       new SqlParameter("@Facility", _DropDownListFacility.SelectedValue),
+                       new SqlParameter("@Tenant", tenantId),
+                       new SqlParameter("@Amount", _TextAdvPayment.Text),
+                       new SqlParameter("@rMonth", _Time.ToString("MMM").ToUpper()),
+                       new SqlParameter("@rYear", _Time.ToString("yyyy")),
+                       new SqlParameter("@rMonthNo",_Time.Month),
+                       new SqlParameter("@TotalAmount", _TextAdvPayment.Text)
+                   );
 
             ShowMessage("Tenant submitted successfully!", true);
 
@@ -121,7 +156,10 @@ namespace Maheshamv3
 
         protected void _ButtonDocVeri_Click(object sender, EventArgs e)
         {
-            string tenantId = string.IsNullOrEmpty(Request.QueryString["ID"]) ? GetLastInsertedTenantID() : Request.QueryString["ID"];
+            string tenantId = string.IsNullOrEmpty(Request.QueryString["ID"])
+                ? GetLastInsertedTenantID()
+                : Request.QueryString["ID"];
+
             Response.Redirect("~/KYCDoc.aspx?TenantID=" + tenantId);
         }
 
@@ -171,6 +209,7 @@ namespace Maheshamv3
             _ButtonAddMore.Visible = false;
             _LiteralMSG.Text = string.Empty;
         }
+
         private string GetLastInsertedTenantID()
         {
             DataTable dt = Utility._GetDataTable("SELECT TOP 1 ID FROM Tenant ORDER BY ID DESC");
