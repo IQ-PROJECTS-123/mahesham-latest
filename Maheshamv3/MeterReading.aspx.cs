@@ -52,7 +52,9 @@ namespace Maheshamv3
             }
 
             // 1️⃣ Insert/Update MeterReading
-            Utility.ExecuteQuery(@"IF EXISTS (SELECT 1 FROM MeterReading WHERE Year=@Year AND MonthNo=@MonthNo AND Facility=@Facility)UPDATE MeterReading SET Reading=@Reading,ReadingFile=@ReadingFile,ReadingOn=@ReadingOn, ReadingBy=@ReadingBy WHERE Year=@Year AND MonthNo=@MonthNo AND Facility=@Facility ELSE INSERT INTO MeterReading(Facility, Reading, ReadingFile, ReadingOn, ReadingBy, Year, MonthNo, Active)VALUES(@Facility, @Reading, @ReadingFile, @ReadingOn, @ReadingBy, @Year, @MonthNo, 1);",
+               Utility.ExecuteQuery(@"IF EXISTS (SELECT 1 FROM MeterReading WHERE Year=@Year  AND MonthNo=@MonthNo AND Facility=@Facility)
+                UPDATE MeterReading SET Reading=@Reading,ReadingFile=@ReadingFile,ReadingOn=@ReadingOn, ReadingBy=@ReadingBy WHERE Year=@Year AND MonthNo=@MonthNo AND Facility=@Facility  
+                ELSE INSERT INTO MeterReading(Facility, Reading, ReadingFile, ReadingOn, ReadingBy, Year, MonthNo, Active)VALUES(@Facility, @Reading, @ReadingFile, @ReadingOn, @ReadingBy, @Year, @MonthNo, 1');",
                 false,
                 new SqlParameter("@Facility", _DropDownListFacility.SelectedValue),
                 new SqlParameter("@Reading", _TextBoxReading.Text),
@@ -86,17 +88,19 @@ namespace Maheshamv3
                 DateTime periodStart = new DateTime(Convert.ToInt32(_DropDownListYear.SelectedValue), _DropDownListMonth.SelectedIndex + 1, rentStart.Day);
                 DateTime periodEnd = periodStart.AddMonths(1).AddDays(-1);
 
-                int totalAmount = monthlyRent + ((meterEnd - meterStart) > 0 ? (meterEnd - meterStart) * 7 : 0);
+
+                DataTable prevMeterDue = Utility._GetDataTable($@"SELECT due FROM rent WHERE AmountType='Rental' and Tenant={tenantId} AND rYear={prevMonth.Year.ToString()} AND rMonth='{prevMonth.ToString("MMM").ToUpper()}' AND Facility={facilityId}");
+                int totalAmount = (monthlyRent + ((meterEnd - meterStart) > 0 ? (meterEnd - meterStart) * 7 : 0)) + (prevMeterDue.Rows.Count == 0 ? 0 : Convert.ToInt32(prevMeterDue.Rows[0][0]));
 
                 // 4️⃣ Insert/Update Rent
                 DataTable tenantRent = Utility._GetDataTable($@"
                     SELECT *
                     FROM Rent
-                    WHERE Tenant={tenantId} AND rYear={_DropDownListYear.SelectedValue} AND rMonth='{_DropDownListMonth.SelectedValue}' AND Facility={facilityId}");
+                    WHERE AmountType='Rental' and Tenant={tenantId} AND rYear={_DropDownListYear.SelectedValue} AND rMonth='{_DropDownListMonth.SelectedValue}' AND Facility={facilityId}");
 
                 if (tenantRent.Rows.Count > 0)
                 {
-                    Utility.ExecuteQuery(@"UPDATE Rent SET MeterStart=@MeterStart,MeterEnd=@MeterEnd,TotalAmount=@TotalAmount WHERE ID=@ID",
+                    Utility.ExecuteQuery(@"UPDATE Rent SET MeterStart=@MeterStart,MeterEnd=@MeterEnd,TotalAmount=@TotalAmount,due=@TotalAmount WHERE ID=@ID",
                         false,
                         new SqlParameter("@ID", tenantRent.Rows[0]["ID"]),
                         new SqlParameter("@MeterStart", meterStart),
@@ -107,7 +111,7 @@ namespace Maheshamv3
                 else
                 {
                     Utility.ExecuteQuery(@"
-                        INSERT INTO Rent(Facility, Tenant, Amount, PeriodStart, PeriodEnd, MeterStart, MeterEnd, rMonth, rYear, rMonthNo, TotalAmount, Active)VALUES(@Facility, @Tenant, @Amount, @PeriodStart, @PeriodEnd, @MeterStart, @MeterEnd, @rMonth, @rYear, @rMonthNo, @TotalAmount, 1)",
+                        INSERT INTO Rent(Facility, Tenant, Amount, PeriodStart, PeriodEnd, MeterStart, MeterEnd, rMonth, rYear, rMonthNo, TotalAmount, Active,Due,AmountType)VALUES(@Facility, @Tenant, @Amount, @PeriodStart, @PeriodEnd, @MeterStart, @MeterEnd, @rMonth, @rYear, @rMonthNo, @TotalAmount, 1, @TotalAmount,'Rental')",
                         false,
                         new SqlParameter("@Facility", facilityId),
                         new SqlParameter("@Tenant", tenantId),

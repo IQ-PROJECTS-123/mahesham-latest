@@ -41,6 +41,7 @@
                                              <img src='/assets/Photo/abc.jpg' width="35" height="35" class="rounded-circle" />
                                          </ItemTemplate>
                                      </asp:TemplateField>
+                                     <asp:BoundField DataField="AmountType" HeaderText="Type" />   
                                     <asp:BoundField DataField="rMonth" HeaderText="Month" />                                   
                                      <asp:BoundField DataField="PeriodStart" HeaderText="Due" />
                                     <%-- <asp:BoundField DataField="PeriodEnd" HeaderText="Period End" />--%>
