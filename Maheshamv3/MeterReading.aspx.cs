@@ -54,7 +54,7 @@ namespace Maheshamv3
             // 1️⃣ Insert/Update MeterReading
                Utility.ExecuteQuery(@"IF EXISTS (SELECT 1 FROM MeterReading WHERE Year=@Year  AND MonthNo=@MonthNo AND Facility=@Facility)
                 UPDATE MeterReading SET Reading=@Reading,ReadingFile=@ReadingFile,ReadingOn=@ReadingOn, ReadingBy=@ReadingBy WHERE Year=@Year AND MonthNo=@MonthNo AND Facility=@Facility  
-                ELSE INSERT INTO MeterReading(Facility, Reading, ReadingFile, ReadingOn, ReadingBy, Year, MonthNo, Active)VALUES(@Facility, @Reading, @ReadingFile, @ReadingOn, @ReadingBy, @Year, @MonthNo, 1');",
+                ELSE INSERT INTO MeterReading(Facility, Reading, ReadingFile, ReadingOn, ReadingBy, Year, MonthNo, Active)VALUES(@Facility, @Reading, @ReadingFile, @ReadingOn, @ReadingBy, @Year, @MonthNo, 1);",
                 false,
                 new SqlParameter("@Facility", _DropDownListFacility.SelectedValue),
                 new SqlParameter("@Reading", _TextBoxReading.Text),
