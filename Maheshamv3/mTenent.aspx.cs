@@ -12,6 +12,7 @@ namespace Maheshamv3
             if (!IsPostBack)
             {
                 BindRooms();
+
                 string tenantId = Request.QueryString["ID"];
                 if (!string.IsNullOrEmpty(tenantId))
                 {
@@ -28,13 +29,9 @@ namespace Maheshamv3
             if (dt.Rows.Count > 0)
             {
                 DataRow row = dt.Rows[0];
-                Utility._BindDropdown(_DropDownListFacility,
-                    "SELECT f.ID, f.Building+' '+f.Location+' - '+f.Title AS Title FROM Facility f",
-                    "ID", "Title", false);
-
+                Utility._BindDropdown(_DropDownListFacility,"SELECT f.ID, f.Building+' '+f.Location+' - '+f.Title AS Title FROM Facility f","ID", "Title", false);
                 _DropDownListType.SelectedValue = row["TenantType"].ToString();
                 _DropDownListFacility.SelectedValue = row["Facility"].ToString();
-
                 _TextName.Text = row["Name"].ToString();
                 _TextBoxEmail.Text = row["Email"].ToString();
                 _TextBoxPWD.Text = row["PWD"].ToString();
@@ -62,14 +59,12 @@ namespace Maheshamv3
             }
 
             string tenantId = Request.QueryString["ID"];
-
-            // ✅ Main Tenant validation (ignore same record when updating)
             if (_DropDownListType.SelectedValue == "Main Tenant")
             {
                 string checkQuery = $@"
-                    SELECT * FROM Tenant 
-                    WHERE Facility={_DropDownListFacility.SelectedValue} 
-                      AND TenantType='Main Tenant' 
+                    SELECT * FROM Tenant
+                    WHERE Facility={_DropDownListFacility.SelectedValue}
+                      AND TenantType='Main Tenant'
                       AND Active=1
                       {(string.IsNullOrEmpty(tenantId) ? "" : $"AND ID <> {tenantId}")}";
 
@@ -82,7 +77,6 @@ namespace Maheshamv3
 
             string password = _TextBoxPWD.Text.Trim();
 
-            // ✅ Keep old password if blank during edit
             if (!string.IsNullOrEmpty(tenantId) && string.IsNullOrEmpty(password))
             {
                 DataTable dtOld = Utility._GetDataTable($"SELECT PWD FROM Tenant WHERE ID={tenantId}");
@@ -125,27 +119,38 @@ namespace Maheshamv3
                 new SqlParameter("@Advance", _TextAdvPayment.Text),
                 new SqlParameter("@RentStart", _TextBoxStartDate.Text)
             );
-            if(string.IsNullOrEmpty(tenantId))            
-                tenantId = Convert.ToString(Utility._GetDataTable("select ID from Tenant where TenantType='Main Tenant' and Active=1 and facility="+_DropDownListFacility.SelectedValue).Rows[0]["ID"]);
+
+            if (string.IsNullOrEmpty(tenantId))
+            {
+                tenantId = Convert.ToString(Utility._GetDataTable(
+                    "SELECT ID FROM Tenant WHERE TenantType='Main Tenant' AND Active=1 AND Facility=" + _DropDownListFacility.SelectedValue
+                ).Rows[0]["ID"]);
+            }
+
             DateTime _Time = Convert.ToDateTime(_TextBoxStartDate.Text);
-            
-            Utility.ExecuteQuery(@"If exists(SELECT * from Rent where Facility=@Facility and Tenant=@Tenant)            
-                                    BEGIN
-                                    Update Rent SET TotalAmount=@TotalAmount,Amount=@TotalAmount,PaidAmount=@TotalAmount where Facility=@Facility and Tenant=@Tenant
-                                    End                    
-                                    else            
-                                    begin
-                                    INSERT INTO Rent(Facility, Tenant, Amount, rMonth, rYear, rMonthNo, TotalAmount,PaidAmount, Active, AmountType, Status)VALUES(@Facility, @Tenant, @TotalAmount, @rMonth, @rYear, @rMonthNo,@TotalAmount, @TotalAmount, 1,'Advance','Completed')
-                                    End",
-                       false,
-                       new SqlParameter("@Facility", _DropDownListFacility.SelectedValue),
-                       new SqlParameter("@Tenant", tenantId),
-                       new SqlParameter("@Amount", _TextAdvPayment.Text),
-                       new SqlParameter("@rMonth", _Time.ToString("MMM").ToUpper()),
-                       new SqlParameter("@rYear", _Time.ToString("yyyy")),
-                       new SqlParameter("@rMonthNo",_Time.Month),
-                       new SqlParameter("@TotalAmount", _TextAdvPayment.Text)
-                   );
+
+            // Insert or update Rent
+            Utility.ExecuteQuery(@"
+                IF EXISTS(SELECT * FROM Rent WHERE Facility=@Facility AND Tenant=@Tenant)
+                BEGIN
+                    UPDATE Rent
+                    SET TotalAmount=@TotalAmount, Amount=@TotalAmount, PaidAmount=@TotalAmount
+                    WHERE Facility=@Facility AND Tenant=@Tenant
+                END
+                ELSE
+                BEGIN
+                    INSERT INTO Rent(Facility, Tenant, Amount, rMonth, rYear, rMonthNo, TotalAmount, PaidAmount, Active, AmountType, Status)
+                    VALUES(@Facility, @Tenant, @TotalAmount, @rMonth, @rYear, @rMonthNo, @TotalAmount, @TotalAmount, 1, 'Advance', 'Completed')
+                END",
+                false,
+                new SqlParameter("@Facility", _DropDownListFacility.SelectedValue),
+                new SqlParameter("@Tenant", tenantId),
+                new SqlParameter("@Amount", _TextAdvPayment.Text),
+                new SqlParameter("@rMonth", _Time.ToString("MMM").ToUpper()),
+                new SqlParameter("@rYear", _Time.ToString("yyyy")),
+                new SqlParameter("@rMonthNo", _Time.Month),
+                new SqlParameter("@TotalAmount", _TextAdvPayment.Text)
+            );
 
             ShowMessage("Tenant submitted successfully!", true);
 

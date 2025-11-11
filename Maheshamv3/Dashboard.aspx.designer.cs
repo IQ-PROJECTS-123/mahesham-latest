@@ -15,15 +15,6 @@ namespace Maheshamv3
     {
 
         /// <summary>
-        /// _LiteralPending control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal _LiteralPending;
-
-        /// <summary>
         /// _LiteralTotalRooms control.
         /// </summary>
         /// <remarks>
@@ -49,5 +40,23 @@ namespace Maheshamv3
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal _Literalvacant;
+
+        /// <summary>
+        /// _Literaloccupied control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal _Literaloccupied;
+
+        /// <summary>
+        /// _LiteralPending control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal _LiteralPending;
     }
 }

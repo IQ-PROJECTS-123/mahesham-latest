@@ -51,7 +51,7 @@
                                 <div class="col-lg-12 col-xl-6">
                                     <div class="form-floating">
                                         <asp:TextBox runat="server" ID="_TextBoxReading" required class="form-control" ClientIDMode="Static"></asp:TextBox>
-                                        <label for="_TextBoxReading">Meater Reading</label>
+                                        <label for="_TextBoxReading">Meter Reading</label>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 col-xl-6">

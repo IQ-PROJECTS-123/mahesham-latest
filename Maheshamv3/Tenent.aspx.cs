@@ -63,6 +63,7 @@ namespace Maheshamv3
                 <p>This tenant has been deactivated in the system.</p>";
 
             Utility._SendEmail("rajnish5454kumar@gmail.com", tenantEmail, subject, emailBody);
+            Utility._SendEmail("Shrikantkumar.info@gmail.com", "", "Payment Submitted", emailBody);
 
             // Refresh Grid
             BindGrid();
