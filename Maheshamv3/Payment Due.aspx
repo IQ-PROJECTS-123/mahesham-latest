@@ -53,34 +53,38 @@
                 <h4 class="text-danger fw-bold mb-3">Pending Payments
                     <asp:Label ID="_LabelYearMonth" runat="server"></asp:Label>
                 </h4>
-
-                <!-- GridView -->
-                <asp:GridView ID="_GridView2" runat="server" AutoGenerateColumns="False"
-                    CssClass="table table-bordered table-striped table-hover"
-                    EmptyDataText="No pending payments found.">
-                    <Columns>
-                        <asp:BoundField DataField="Tenant" HeaderText="Tenant Name" />
-                        <asp:BoundField DataField="Room" HeaderText="Room" />
-                        <asp:BoundField DataField="MonthName" HeaderText="Month" />
-                        <asp:BoundField DataField="Year" HeaderText="Year" />
-                        <asp:BoundField DataField="PeriodStart" HeaderText="Period Start" />
-                        <asp:BoundField DataField="PeriodEnd" HeaderText="Period End" />
-                        <asp:BoundField DataField="MeterStart" HeaderText="Meter Start" />
-                        <asp:BoundField DataField="MeterEnd" HeaderText="Meter End" />
-                        <asp:BoundField DataField="Unit" HeaderText="Units Used" />
-                        <asp:BoundField DataField="Bill" HeaderText="Electric Bill" DataFormatString="{0:N2}" />
-                        <asp:BoundField DataField="TotalAmount" HeaderText="Total Amount" DataFormatString="{0:N2}" />
-                        <asp:BoundField DataField="PaidAmount" HeaderText="Paid Amount" DataFormatString="{0:N2}" />
-                        <%-- <asp:BoundField DataField="PrevDue" HeaderText="Previous Due" DataFormatString="{0:N2}" />
+                <div class="card shadow-sm border-success">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <span class="h5 mb-0 text-success fw-bold">Total Due Amount:</span>
+                        <asp:Label ID="lblTotalDue" runat="server" CssClass="h5 mb-0 text-success fw-bold"></asp:Label>
+                    </div>
+                    <!-- GridView -->
+                    <asp:GridView ID="_GridView2" runat="server" AutoGenerateColumns="False"
+                        CssClass="table table-bordered table-striped table-hover"
+                        EmptyDataText="No pending payments found.">
+                        <Columns>
+                            <asp:BoundField DataField="Tenant" HeaderText="Tenant Name" />
+                            <asp:BoundField DataField="Room" HeaderText="Room" />
+                            <asp:BoundField DataField="MonthName" HeaderText="Month" />
+                            <asp:BoundField DataField="Year" HeaderText="Year" />
+                            <asp:BoundField DataField="PeriodStart" HeaderText="Period Start" />
+                            <asp:BoundField DataField="PeriodEnd" HeaderText="Period End" />
+                            <asp:BoundField DataField="MeterStart" HeaderText="Meter Start" />
+                            <asp:BoundField DataField="MeterEnd" HeaderText="Meter End" />
+                            <asp:BoundField DataField="Unit" HeaderText="Units Used" />
+                            <asp:BoundField DataField="Bill" HeaderText="Electric Bill" DataFormatString="{0:N2}" />
+                            <asp:BoundField DataField="TotalAmount" HeaderText="Total Amount" DataFormatString="{0:N2}" />
+                            <asp:BoundField DataField="PaidAmount" HeaderText="Paid Amount" DataFormatString="{0:N2}" />
+                            <%-- <asp:BoundField DataField="PrevDue" HeaderText="Previous Due" DataFormatString="{0:N2}" />
                         <asp:BoundField DataField="CurrentDue" HeaderText="Current Due" DataFormatString="{0:N2}" />--%>
-                        <asp:TemplateField HeaderText="Action">
-                            <ItemTemplate>
-                                <asp:ImageButton CommandArgument='<%# Bind("ID") %>' ID="_ImageButtonView" runat="server" ImageUrl="~/img/edit.png" Width="30px" ToolTip="Payment Due" OnClick="_ImageButtonView_Click"/>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                    </Columns>
-                </asp:GridView>
+                            <asp:TemplateField HeaderText="Action">
+                                <ItemTemplate>
+                                    <asp:ImageButton CommandArgument='<%# Bind("ID") %>' ID="_ImageButtonView" runat="server" ImageUrl="~/img/edit.png" Width="30px" ToolTip="Payment Due" OnClick="_ImageButtonView_Click" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                    </asp:GridView>
+                </div>
             </div>
         </div>
-    </div>
 </asp:Content>
